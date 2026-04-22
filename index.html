@@ -9,69 +9,101 @@
     margin: 0;
     background: #f1f5f9;
 }
-a {
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: bold;
-}
 
-a:hover {
-    text-decoration: underline;
-}
-header {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    color: white;
-    padding: 60px;
+/* NAVBAR */
+nav {
+    background: #0f172a;
+    padding: 15px;
     text-align: center;
 }
 
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.intro {
+    max-width: 600px;
+    margin: 20px auto;
+    font-size: 16px;
+}
+
+.buttons a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 6px;
+}
+
+/* SECTIONS */
 section {
-    padding: 40px;
+    padding: 50px 20px;
     max-width: 900px;
     margin: auto;
 }
 
+/* CARDS */
 .card {
     background: white;
     padding: 25px;
     margin-bottom: 20px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
 }
 
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* TITRES */
 h2 {
     color: #0f172a;
-}
-
-a {
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
 }
         </style>
 </head>
 
 <body>
-
+<nav>
+    <a href="#about">À propos</a>
+    <a href="#skills">Compétences</a>
+    <a href="#projects">Projets</a>
+    <a href="#contact">Contact</a>
+</nav>
 <header>
     <h1>Yousra Zerouati</h1>
-    <p>Développeuse ERP Full Stack (.NET & Blazor)</p>
-    <p>
-        Spécialisée dans le développement de modules ERP robustes 
-        (gestion des données, facturation, suivi métier)
+    <p class="subtitle">Développeuse ERP Full Stack (.NET & Blazor)</p>
+
+    <p class="intro">
+        Je développe des modules ERP robustes avec une forte logique métier,
+        notamment dans la gestion des données, facturation et suivi.
     </p>
-    <p>
-    <a href="cv.pdf" target="_blank">📄 Télécharger mon CV</a>
-</p>
+
+    <div class="buttons">
+        <a href="#projects">Voir mes projets</a>
+        <a href="cv.pdf" target="_blank">Télécharger CV</a>
+    </div>
 </header>
 
-<section>
+ <section >
     <h2>À propos</h2>
-    <section>
+ <section id="skills">
     <h2>Compétences</h2>
 
     <div class="card">
@@ -88,7 +120,7 @@ a:hover {
         <h3>Base de données</h3>
         <p>SQL Server, Entity Framework</p>
     </div>
-</section>
+<section id="about">
     <div class="card">
         <p>
             Développeuse avec 3 ans d’expérience dans le développement de modules ERP 
@@ -97,7 +129,7 @@ a:hover {
     </div>
 </section>
 
-<section>
+<section id="projects">
     <h2>Projets</h2>
 
     <div class="card">
@@ -150,7 +182,7 @@ a:hover {
 </div>
 </section>
 
-<section>
+<section id="about">
     <h2>Contact</h2>
     <div class="card">
         <p>Email : zerouati.yousra@gmail.com</p>
