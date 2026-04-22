@@ -1,193 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Yousra Zerouati - Portfolio</title>
-    <style>
-    body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    background: #f1f5f9;
-}
-
-/* NAVBAR */
-nav {
-    background: #0f172a;
-    padding: 15px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-/* HEADER */
-header {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    color: white;
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.subtitle {
-    font-size: 18px;
-    opacity: 0.9;
-}
-
-.intro {
-    max-width: 600px;
-    margin: 20px auto;
-    font-size: 16px;
-}
-
-.buttons a {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    background: #3b82f6;
-    color: white;
-    border-radius: 6px;
-}
-
-/* SECTIONS */
-section {
-    padding: 50px 20px;
-    max-width: 900px;
-    margin: auto;
-}
-
-/* CARDS */
-.card {
-    background: white;
-    padding: 25px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-/* TITRES */
-h2 {
-    color: #0f172a;
-}
-        </style>
+<meta charset="UTF-8">
+<title>Accueil - Yousra Zerouati</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
 <nav>
-    <a href="#about">À propos</a>
-    <a href="#skills">Compétences</a>
-    <a href="#projects">Projets</a>
-    <a href="#contact">Contact</a>
+    <a href="index.html">Accueil</a>
+    <a href="projects.html">Projets</a>
+    <a href="skills.html">Compétences</a>
+    <a href="contact.html">Contact</a>
 </nav>
+
 <header>
     <h1>Yousra Zerouati</h1>
-    <p class="subtitle">Développeuse ERP Full Stack (.NET & Blazor)</p>
-
-    <p class="intro">
-        Je développe des modules ERP robustes avec une forte logique métier,
-        notamment dans la gestion des données, facturation et suivi.
-    </p>
-
-    <div class="buttons">
-        <a href="#projects">Voir mes projets</a>
-        <a href="cv.pdf" target="_blank">Télécharger CV</a>
-    </div>
+    <p>Développeuse ERP Full Stack (.NET & Blazor)</p>
 </header>
 
- <section  id="about">
+<section>
     <h2>À propos</h2>
+
     <div class="card">
         <p>
-            Développeuse avec 3 ans d’expérience dans le développement de modules ERP 
-            (gestion des déchets, clients, fournisseurs, facturation).
+            Développeuse ERP avec 3 ans d’expérience dans la conception et le développement
+            de modules métier robustes.
+        </p>
+
+        <p>
+            J’ai travaillé sur plusieurs modules :
+        </p>
+
+        <ul>
+            <li>Waste Tracking (gestion des déchets)</li>
+            <li>Customer & Vendor Management</li>
+            <li>Facturation avec calculs automatiques</li>
+        </ul>
+
+        <p>
+            Mon objectif est de créer des applications fiables, performantes
+            et adaptées aux besoins réels des entreprises.
         </p>
     </div>
-</section>
- <section id="skills">
-    <h2>Compétences</h2>
 
-    <div class="card">
-        <h3>Back-end</h3>
-        <p>C#, .NET, ASP.NET Core</p>
-    </div>
-
-    <div class="card">
-        <h3>Front-end</h3>
-        <p>Blazor, Syncfusion</p>
-    </div>
-
-    <div class="card">
-        <h3>Base de données</h3>
-        <p>SQL Server, Entity Framework</p>
-    </div>
-
-
-<section id="projects">
-    <h2>Projets</h2>
-
-    <div class="card">
-    <h3>Waste Tracking Module</h3>
-
-    <p>
-        Développement d’un module ERP permettant la gestion des déchets 
-        via des vouchers liés aux clients et fournisseurs.
-    </p>
-
-    <ul>
-        <li>Gestion des relations SQL (Foreign Keys)</li>
-        <li>Validation des données</li>
-        <li>Gestion des erreurs critiques</li>
-    </ul>
-
-    <p><strong>Technologies :</strong> C#, .NET, Blazor, SQL Server</p>
-</div>
-<div class="card">
-    <h3>Customer & Vendor Management</h3>
-
-    <p>
-        Module de gestion des clients et fournisseurs avec CRUD complet 
-        et validation des données.
-    </p>
-
-    <ul>
-        <li>Implémentation des relations entre entités</li>
-        <li>Gestion des erreurs SQL</li>
-        <li>Validation front-end et back-end</li>
-    </ul>
-
-    <p><strong>Technologies :</strong> C#, Entity Framework, SQL Server</p>
-</div>
-    <div class="card">
-    <h3>Billing Module</h3>
-
-    <p>
-        Système de facturation avec calcul automatique des montants 
-        (HT, TTC, TVA).
-    </p>
-
-    <ul>
-        <li>Calcul dynamique dans une grille (Syncfusion)</li>
-        <li>Mise à jour en temps réel</li>
-        <li>Prévention des erreurs NULL</li>
-    </ul>
-
-    <p><strong>Technologies :</strong> Blazor, Syncfusion, C#, SQL</p>
-</div>
-</section>
-
-<section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-        <p>Email : zerouati.yousra@gmail.com</p>
-        <p>GitHub : github.com/yousra-zerouati</p>
-    </div>
 </section>
 
 </body>
