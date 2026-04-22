@@ -9,7 +9,15 @@
     margin: 0;
     background: #f1f5f9;
 }
+a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: bold;
+}
 
+a:hover {
+    text-decoration: underline;
+}
 header {
     background: linear-gradient(135deg, #1e293b, #0f172a);
     color: white;
@@ -52,10 +60,35 @@ a:hover {
 <header>
     <h1>Yousra Zerouati</h1>
     <p>Développeuse ERP Full Stack (.NET & Blazor)</p>
+    <p>
+        Spécialisée dans le développement de modules ERP robustes 
+        (gestion des données, facturation, suivi métier)
+    </p>
+    <p>
+    <a href="cv.pdf" target="_blank">📄 Télécharger mon CV</a>
+</p>
 </header>
 
 <section>
     <h2>À propos</h2>
+    <section>
+    <h2>Compétences</h2>
+
+    <div class="card">
+        <h3>Back-end</h3>
+        <p>C#, .NET, ASP.NET Core</p>
+    </div>
+
+    <div class="card">
+        <h3>Front-end</h3>
+        <p>Blazor, Syncfusion</p>
+    </div>
+
+    <div class="card">
+        <h3>Base de données</h3>
+        <p>SQL Server, Entity Framework</p>
+    </div>
+</section>
     <div class="card">
         <p>
             Développeuse avec 3 ans d’expérience dans le développement de modules ERP 
@@ -68,20 +101,53 @@ a:hover {
     <h2>Projets</h2>
 
     <div class="card">
-        <h3>Waste Tracking Module</h3>
-        <p>Gestion des vouchers, clients et fournisseurs avec logique métier avancée.</p>
-    </div>
+    <h3>Waste Tracking Module</h3>
 
+    <p>
+        Développement d’un module ERP permettant la gestion des déchets 
+        via des vouchers liés aux clients et fournisseurs.
+    </p>
+
+    <ul>
+        <li>Gestion des relations SQL (Foreign Keys)</li>
+        <li>Validation des données</li>
+        <li>Gestion des erreurs critiques</li>
+    </ul>
+
+    <p><strong>Technologies :</strong> C#, .NET, Blazor, SQL Server</p>
+</div>
+<div class="card">
+    <h3>Customer & Vendor Management</h3>
+
+    <p>
+        Module de gestion des clients et fournisseurs avec CRUD complet 
+        et validation des données.
+    </p>
+
+    <ul>
+        <li>Implémentation des relations entre entités</li>
+        <li>Gestion des erreurs SQL</li>
+        <li>Validation front-end et back-end</li>
+    </ul>
+
+    <p><strong>Technologies :</strong> C#, Entity Framework, SQL Server</p>
+</div>
     <div class="card">
-        <h3>Customer & Vendor Management</h3>
-        <p>CRUD complet avec validation et gestion des relations SQL.</p>
-    </div>
+    <h3>Billing Module</h3>
 
-    <div class="card">
-        <h3>Billing Module</h3>
-        <p>Calcul automatique HT / TTC / TVA avec interface dynamique.</p>
-    </div>
+    <p>
+        Système de facturation avec calcul automatique des montants 
+        (HT, TTC, TVA).
+    </p>
 
+    <ul>
+        <li>Calcul dynamique dans une grille (Syncfusion)</li>
+        <li>Mise à jour en temps réel</li>
+        <li>Prévention des erreurs NULL</li>
+    </ul>
+
+    <p><strong>Technologies :</strong> Blazor, Syncfusion, C#, SQL</p>
+</div>
 </section>
 
 <section>
