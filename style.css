@@ -96,3 +96,7 @@ a:hover {
     margin-bottom: 15px;
     font-size: 16px;
 }
+img {
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
