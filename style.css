@@ -2,13 +2,13 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    background: #faf5ff;
+    background: #faf7ff;
     color: #1f2937;
 }
 
 /* NAVBAR */
 nav {
-    background: #1f1147;
+    background: #2e1065;
     padding: 15px;
     text-align: center;
     position: sticky;
@@ -23,15 +23,29 @@ nav a {
 }
 
 nav a:hover {
-    color: #f472b6; /* rose */
+    color: #c4b5fd;
 }
 
-/* HEADER */
+/* HEADER (HERO) */
 header {
-    background: linear-gradient(135deg, #1f1147, #4c1d95);
-    color: white;
-    padding: 80px 20px;
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    padding: 100px 20px;
     text-align: center;
+}
+
+/* NOM PLUS VISIBLE */
+header h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: #2e1065;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+/* SOUS-TITRE */
+header p {
+    font-size: 18px;
+    color: #4c1d95;
 }
 
 /* SECTIONS */
@@ -43,7 +57,7 @@ section {
 
 /* TITRES */
 h1, h2, h3 {
-    color: #1f1147;
+    color: #2e1065;
 }
 
 /* GRID */
@@ -57,25 +71,24 @@ h1, h2, h3 {
 .card {
     background: white;
     padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     transition: 0.3s;
-    border: 1px solid #ede9fe;
+    border: 1px solid #e9d5ff;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: #f472b6; /* rose */
+    border-color: #c4b5fd;
 }
 
 /* LINKS */
 a {
-    color: #a855f7;
+    color: #7c3aed;
 }
 
 a:hover {
-    color: #f472b6;
-    text-decoration: underline;
+    color: #a78bfa;
 }
 
 /* CONTACT */
