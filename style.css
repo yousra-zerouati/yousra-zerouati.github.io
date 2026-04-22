@@ -2,13 +2,13 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    background: #f8fafc;
-    color: #1e293b;
+    background: #f5f7fa;
+    color: #1f2937;
 }
 
 /* NAVBAR */
 nav {
-    background: #0f172a;
+    background: #111827;
     padding: 15px;
     text-align: center;
     position: sticky;
@@ -16,19 +16,19 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #e5e7eb;
     margin: 0 15px;
     text-decoration: none;
     font-weight: 500;
 }
 
 nav a:hover {
-    color: #38bdf8;
+    color: #14b8a6; /* turquoise */
 }
 
 /* HEADER */
 header {
-    background: linear-gradient(135deg, #1e293b, #334155);
+    background: linear-gradient(135deg, #111827, #1f2937);
     color: white;
     padding: 80px 20px;
     text-align: center;
@@ -43,7 +43,7 @@ section {
 
 /* TITRES */
 h1, h2, h3 {
-    color: #0f172a;
+    color: #111827;
 }
 
 /* GRID */
@@ -60,17 +60,17 @@ h1, h2, h3 {
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     transition: 0.3s;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e5e7eb;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: #38bdf8;
+    border-color: #14b8a6; /* turquoise */
 }
 
 /* LINKS */
 a {
-    color: #2563eb;
+    color: #14b8a6;
 }
 
 a:hover {
