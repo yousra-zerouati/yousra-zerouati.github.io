@@ -218,7 +218,7 @@ document.querySelectorAll('nav a').forEach(link => {
         const targetId = this.getAttribute('href');
         const target = document.querySelector(targetId);
 
-        const offset = 80; // hauteur navbar
+   const offset = 100;
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
         window.scrollTo({
