@@ -159,3 +159,15 @@ img {
 .show {
     opacity: 1;
     transform: translateY(0);
+
+    section {
+    padding: 80px 20px;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+    header {
+    text-align: center;
+    padding: 120px 20px 80px;
+}
