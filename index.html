@@ -209,3 +209,22 @@ modal.onclick = function () {
 <div class="image-modal" id="imageModal">
     <img id="modalImg">
 </div>
+
+<script>
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+
+        const offset = 80; // hauteur navbar
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
+        });
+    });
+});
+</script>
