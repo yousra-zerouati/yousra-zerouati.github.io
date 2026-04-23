@@ -68,26 +68,37 @@
     <h2>Mes Projets</h2>
 
     <!-- Waste Tracking -->
-    <div class="card">
-    <h3>🚚 Waste Tracking Module</h3>
 
-    <p>
-        Développement d’un module ERP permettant la gestion et le suivi des déchets 
-        via des vouchers liés aux clients et fournisseurs.
-    </p>
+<div class="card project-card">
+    
+    <div class="project-text">
+        <h3>🚚 Waste Tracking Module</h3>
 
-    <ul>
-        <li>Gestion des relations SQL (Foreign Keys)</li>
-        <li>Validation des données</li>
-        <li>Gestion des statuts et workflow</li>
-    </ul>
+        <p>
+            Module ERP permettant la gestion et le suivi des déchets
+            via des vouchers liés aux clients et fournisseurs.
+        </p>
 
-    <img src="ERP-Menu.PNG" class="zoom-img">
-    <img src="Waste-Browse.PNG" class="zoom-img">
-    <img src="Waste-add.PNG" class="zoom-img">
+        <ul>
+            <li>Gestion des relations SQL</li>
+            <li>Validation des données</li>
+            <li>Workflow de statuts</li>
+        </ul>
 
-    <p><strong>Technologies :</strong> C#, .NET, Blazor, SQL Server</p>
+        <p class="tech">
+            C#, .NET, Blazor, SQL Server
+        </p>
+    </div>
+
+    <div class="project-images">
+        <img src="ERP-Menu.PNG" class="zoom-img">
+          <img src="Waste-add.PNG" class="zoom-img">
+          <img src="Waste-Browse.PNG" class="zoom-img">
+    </div>
+
 </div>
+    
+    
     <div class="card">
     <h3>🧠 Problèmes résolus</h3>
 
@@ -164,6 +175,19 @@ document.querySelectorAll('.zoom-img').forEach(img => {
     }
 });
 </script>
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+});
 
+document.querySelectorAll('.card').forEach(el => {
+    el.classList.add('hidden');
+    observer.observe(el);
+});
+</script>
 </body>
 </html>
