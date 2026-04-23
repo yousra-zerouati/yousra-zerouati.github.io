@@ -211,3 +211,7 @@ img {
         opacity: 1;
     }
 }
+    .project-card {
+    border-left: 4px solid #c4b5fd;
+    padding-left: 15px;
+}
