@@ -2,50 +2,119 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Accueil - Yousra Zerouati</title>
+<title>Portfolio - Yousra Zerouati</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav>
-    <a href="index.html">Accueil</a>
-    <a href="projects.html">Projets</a>
-    <a href="skills.html">Compétences</a>
-    <a href="contact.html">Contact</a>
+    <a href="#about">À propos</a>
+    <a href="#projects">Projets</a>
+    <a href="#skills">Compétences</a>
+    <a href="#contact">Contact</a>
 </nav>
 
+<!-- HEADER -->
 <header>
     <h1>Yousra Zerouati</h1>
     <p>Développeuse ERP Full Stack (.NET & Blazor)</p>
 </header>
 
-<section>
+<!-- ABOUT -->
+<section id="about">
     <h2>À propos</h2>
 
     <div class="card">
         <p>
-            Développeuse ERP avec 3 ans d’expérience dans la conception et le développement
-            de modules métier robustes.
+            Développeuse ERP avec 3 ans d’expérience dans la conception
+            de modules métier robustes (facturation, gestion des données, tracking).
         </p>
+    </div>
+</section>
 
-        <p>
-            J’ai travaillé sur plusieurs modules :
-        </p>
+<!-- PROJECTS -->
+<section id="projects">
+    <h2>Mes Projets</h2>
 
-        <ul>
-            <li>Waste Tracking (gestion des déchets)</li>
-            <li>Customer & Vendor Management</li>
-            <li>Facturation avec calculs automatiques</li>
-        </ul>
+    <!-- Waste Tracking -->
+    <div class="card">
+        <h3>🚚 Waste Tracking Module</h3>
 
-        <p>
-            Mon objectif est de créer des applications fiables, performantes
-            et adaptées aux besoins réels des entreprises.
-        </p>
+        <p>Gestion des vouchers et suivi des statuts.</p>
+
+        <img src="waste-list.png" class="zoom-img">
+        <img src="waste-form.png" class="zoom-img">
+    </div>
+
+    <!-- Customer -->
+    <div class="card">
+        <h3>👥 Customer & Vendor</h3>
+        <p>Gestion des clients et fournisseurs.</p>
+    </div>
+
+    <!-- Billing -->
+    <div class="card">
+        <h3>💰 Billing</h3>
+        <p>Facturation avec calcul automatique.</p>
     </div>
 
 </section>
+
+<!-- SKILLS -->
+<section id="skills">
+    <h2>Compétences</h2>
+
+    <div class="grid">
+        <div class="card">C#, .NET</div>
+        <div class="card">Blazor</div>
+        <div class="card">SQL Server</div>
+        <div class="card">Syncfusion</div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <h2>Contact</h2>
+
+    <div class="card">
+        <p>Email : zerouati.yousra@gmail.com</p>
+        <p>
+            GitHub :
+            <a href="https://github.com/yousra-zerouati" target="_blank">
+                github.com/yousra-zerouati
+            </a>
+        </p>
+    </div>
+</section>
+
+<!-- JS ZOOM IMAGE -->
+<script>
+document.querySelectorAll('.zoom-img').forEach(img => {
+    img.onclick = function() {
+        let modal = document.createElement('div');
+        modal.style.position = "fixed";
+        modal.style.top = "0";
+        modal.style.left = "0";
+        modal.style.width = "100%";
+        modal.style.height = "100%";
+        modal.style.background = "rgba(0,0,0,0.8)";
+        modal.style.display = "flex";
+        modal.style.alignItems = "center";
+        modal.style.justifyContent = "center";
+
+        let modalImg = document.createElement('img');
+        modalImg.src = this.src;
+        modalImg.style.maxWidth = "80%";
+
+        modal.appendChild(modalImg);
+        document.body.appendChild(modal);
+
+        modal.onclick = () => modal.remove();
+    }
+});
+</script>
 
 </body>
 </html>
