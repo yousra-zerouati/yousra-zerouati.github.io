@@ -190,4 +190,22 @@ document.querySelectorAll('.card').forEach(el => {
 });
 </script>
 </body>
+    <script>
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImg");
+
+document.querySelectorAll(".zoom-img").forEach(img => {
+    img.onclick = function () {
+        modal.style.display = "flex";
+        modalImg.src = this.src;
+    };
+});
+
+modal.onclick = function () {
+    modal.style.display = "none";
+};
+</script>
 </html>
+<div class="image-modal" id="imageModal">
+    <img id="modalImg">
+</div>
