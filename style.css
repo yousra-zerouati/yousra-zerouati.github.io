@@ -215,3 +215,7 @@ img {
     border-left: 4px solid #c4b5fd;
     padding-left: 15px;
 }
+    .project-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+}
