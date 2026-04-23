@@ -225,3 +225,7 @@ img {
     border-bottom: 2px solid #c4b5fd;
     padding-bottom: 3px;
 }
+
+    section {
+    scroll-margin-top: 100px;
+}
