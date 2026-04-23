@@ -219,3 +219,9 @@ img {
     transform: translateY(-5px);
     transition: 0.3s;
 }
+
+    nav a.active {
+    color: #c4b5fd;
+    border-bottom: 2px solid #c4b5fd;
+    padding-bottom: 3px;
+}
