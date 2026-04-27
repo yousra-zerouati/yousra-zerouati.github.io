@@ -21,6 +21,33 @@
   --body:    'Outfit', sans-serif;
   --mono:    'Space Mono', monospace;
 }
+  .lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lang-option {
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.lang-option.active {
+  color: var(--accent);
+}
+
+.lang-option:hover {
+  color: var(--paper);
+}
+
+.divider {
+  opacity: 0.3;
+}
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--body); background: var(--bg); color: var(--paper); overflow-x: hidden; cursor: none; }
@@ -231,9 +258,10 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
     <li><a href="#skills">Stack</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="lang-switch">
-  <button onclick="setLang('fr')">FR</button>
-  <button onclick="setLang('en')">EN</button>
+<div class="lang-toggle">
+  <span class="lang-option active" data-lang="fr">FR</span>
+  <span class="divider">|</span>
+  <span class="lang-option" data-lang="en">EN</span>
 </div>
 </nav>
 
@@ -543,6 +571,70 @@ function closeModal() {
   document.getElementById('modal').classList.remove('open');
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  const translations = {
+  fr: {
+    nav_about: "À propos",
+    nav_projects: "Projets",
+    nav_skills: "Stack",
+    nav_contact: "Contact",
+
+    hero_tag: "Disponible — Open to opportunities",
+    hero_desc: "Développeuse ERP Full Stack spécialisée en .NET & Blazor — je conçois des modules métier robustes pour des systèmes de gestion complexes : facturation, tracking, logique de données.",
+    btn_contact: "Me contacter →",
+    btn_projects: "Voir mes projets",
+
+    about_title: "Construire de la logique,",
+    about_sub: "pas juste du code.",
+
+    contact_title: "Travaillons",
+    contact_sub: "ensemble."
+  },
+
+  en: {
+    nav_about: "About",
+    nav_projects: "Projects",
+    nav_skills: "Tech Stack",
+    nav_contact: "Contact",
+
+    hero_tag: "Available — Open to opportunities",
+    hero_desc: "ERP Full Stack Developer specialized in .NET & Blazor — I build robust business modules for complex systems including billing, tracking, and data workflows.",
+    btn_contact: "Contact me →",
+    btn_projects: "View my projects",
+
+    about_title: "Building logic,",
+    about_sub: "not just code.",
+
+    contact_title: "Let's work",
+    contact_sub: "together."
+  }
+};
+
+function setLanguage(lang) {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  document.querySelectorAll(".lang-option").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.lang === lang);
+  });
+
+  localStorage.setItem("lang", lang);
+}
+
+document.querySelectorAll(".lang-option").forEach(btn => {
+  btn.addEventListener("click", () => {
+    setLanguage(btn.dataset.lang);
+  });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem("lang") || "fr";
+  setLanguage(savedLang);
+});
 </script>
 </body>
 </html>
+
