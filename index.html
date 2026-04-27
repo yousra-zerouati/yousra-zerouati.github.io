@@ -1,252 +1,545 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Portfolio - Yousra Zerouati</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yousra Zerouati — ERP Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:      #080b10;
+  --surface: #0e1219;
+  --border:  rgba(255,255,255,0.07);
+  --paper:   #e8e4dc;
+  --muted:   #7a8394;
+  --accent:  #5de0c8;
+  --accent2: #3a7bd5;
+  --red:     #e05d5d;
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --body:    'Outfit', sans-serif;
+  --mono:    'Space Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--bg); color: var(--paper); overflow-x: hidden; cursor: none; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
 
+/* CURSOR */
+.cursor-dot { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; width:8px; height:8px; border-radius:50%; background:var(--accent); transform:translate(-50%,-50%); transition:transform 0.08s; }
+.cursor-ring { position:fixed; top:0; left:0; pointer-events:none; z-index:9998; width:32px; height:32px; border-radius:50%; border:1px solid var(--accent); transform:translate(-50%,-50%); transition:transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s; opacity:0.5; }
+body.hovering .cursor-ring { width:52px; height:52px; opacity:0.3; }
+
+/* GRAIN */
+body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:999; opacity:0.35; }
+
+/* NAV */
+nav { position:fixed; top:0; inset-inline:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:20px 52px; background:linear-gradient(to bottom,rgba(8,11,16,0.98),transparent); backdrop-filter:blur(4px); }
+.nav-brand { font-family:var(--display); font-size:22px; font-weight:600; color:var(--paper); letter-spacing:0.02em; }
+.nav-brand span { color:var(--accent); }
+.nav-links { display:flex; gap:40px; }
+.nav-links a { font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); transition:color 0.25s; position:relative; }
+.nav-links a::after { content:''; position:absolute; bottom:-6px; left:0; width:0; height:1px; background:var(--accent); transition:width 0.3s ease; }
+.nav-links a:hover,.nav-links a.active { color:var(--paper); }
+.nav-links a:hover::after,.nav-links a.active::after { width:100%; }
+
+/* HERO */
+#hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:0 52px; position:relative; overflow:hidden; gap:40px; }
+#hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 55% 70% at 80% 30%,rgba(93,224,200,0.06) 0%,transparent 65%),radial-gradient(ellipse 45% 55% at 10% 80%,rgba(58,123,213,0.07) 0%,transparent 60%); animation:bgPulse 8s ease-in-out infinite alternate; }
+#hero::after { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px); background-size:80px 80px; mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,0.4) 30%,rgba(0,0,0,0.4) 70%,transparent); }
+@keyframes bgPulse { from{opacity:0.6;} to{opacity:1;} }
+
+.hero-left { position:relative; z-index:2; padding-top:100px; }
+.hero-tag { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); border:1px solid rgba(93,224,200,0.3); padding:6px 14px; border-radius:2px; margin-bottom:32px; opacity:0; animation:fadeUp 0.7s 0.1s ease forwards; }
+.hero-tag::before { content:'●'; font-size:6px; animation:blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+.hero-name { font-family:var(--display); font-size:clamp(52px,7vw,88px); font-weight:700; line-height:1.0; color:var(--paper); margin-bottom:10px; opacity:0; animation:fadeUp 0.8s 0.25s ease forwards; }
+.hero-name-italic { font-family:var(--display); font-size:clamp(38px,5vw,62px); font-style:italic; font-weight:400; color:var(--accent); opacity:0; animation:fadeUp 0.8s 0.35s ease forwards; margin-bottom:36px; }
+.hero-desc { font-size:16px; font-weight:300; line-height:1.85; color:var(--muted); max-width:440px; margin-bottom:48px; opacity:0; animation:fadeUp 0.8s 0.5s ease forwards; }
+.hero-desc strong { color:var(--paper); font-weight:500; }
+.hero-actions { display:flex; gap:16px; align-items:center; opacity:0; animation:fadeUp 0.8s 0.65s ease forwards; }
+.btn-primary { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; background:var(--accent); color:var(--bg); padding:15px 30px; border:none; cursor:none; transition:background 0.25s,gap 0.25s,letter-spacing 0.25s; font-weight:700; }
+.btn-primary:hover { background:#7eecd8; gap:14px; letter-spacing:0.16em; }
+.btn-secondary { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; border:1px solid var(--border); color:var(--muted); padding:15px 30px; transition:border-color 0.25s,color 0.25s; }
+.btn-secondary:hover { border-color:var(--accent); color:var(--accent); }
+
+.hero-right { position:relative; z-index:2; padding-top:100px; display:flex; justify-content:center; align-items:center; }
+.hero-card { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:40px; width:100%; max-width:380px; position:relative; opacity:0; animation:fadeIn 1s 0.8s ease forwards; box-shadow:0 40px 80px rgba(0,0,0,0.5); }
+.hero-card::before { content:''; position:absolute; top:0; left:24px; right:24px; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); }
+.hero-card-label { font-family:var(--mono); font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; }
+.stat-row { display:flex; justify-content:space-between; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--border); }
+.stat-row:last-child { border-bottom:none; }
+.stat-label { font-size:13px; color:var(--muted); }
+.stat-value { font-family:var(--display); font-size:28px; font-weight:600; color:var(--paper); }
+.stat-value span { font-family:var(--body); font-size:12px; color:var(--muted); margin-left:4px; }
+
+.hero-scroll { position:absolute; bottom:40px; left:52px; z-index:2; display:flex; align-items:center; gap:14px; opacity:0; animation:fadeIn 1s 1.2s ease forwards; }
+.hero-scroll span { font-family:var(--mono); font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); }
+.scroll-bar { width:48px; height:1px; background:var(--border); position:relative; }
+.scroll-bar::after { content:''; position:absolute; top:0; left:0; width:50%; height:100%; background:var(--accent); animation:scanLine 2s ease infinite; }
+@keyframes scanLine { 0%{left:0;width:30%;} 50%{left:70%;width:30%;} 100%{left:0;width:30%;} }
+
+/* LAYOUT */
+.wrap { max-width:1160px; margin:0 auto; padding:0 52px; }
+section { scroll-margin-top:80px; }
+.section-header { margin-bottom:72px; }
+.section-eyebrow { display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+.section-eyebrow::before { content:''; width:36px; height:1px; background:var(--accent); flex-shrink:0; }
+.section-title { font-family:var(--display); font-size:clamp(38px,5vw,60px); font-weight:700; line-height:1.1; color:var(--paper); }
+.section-title em { font-style:italic; color:var(--muted); }
+.sep { width:100%; height:1px; background:linear-gradient(90deg,transparent 0%,var(--border) 20%,var(--border) 80%,transparent); }
+
+/* ABOUT */
+#about { padding:120px 0; }
+.about-grid { display:grid; grid-template-columns:3fr 2fr; gap:80px; align-items:start; }
+.about-body p { font-size:16px; line-height:1.95; color:var(--muted); margin-bottom:22px; font-weight:300; }
+.about-body p strong { color:var(--paper); font-weight:500; }
+.about-list { margin:28px 0; }
+.about-list li { display:flex; align-items:flex-start; gap:14px; font-size:15px; color:var(--muted); padding:12px 0; border-bottom:1px solid var(--border); line-height:1.6; }
+.about-list li:first-child { border-top:1px solid var(--border); }
+.about-list li::before { content:'→'; color:var(--accent); flex-shrink:0; margin-top:1px; font-family:var(--mono); font-size:13px; }
+.about-aside { display:flex; flex-direction:column; gap:24px; }
+.aside-card { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:28px; position:relative; overflow:hidden; transition:border-color 0.3s; }
+.aside-card:hover { border-color:rgba(93,224,200,0.3); }
+.aside-card::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent2),var(--accent)); transform:scaleX(0); transform-origin:left; transition:transform 0.4s ease; }
+.aside-card:hover::after { transform:scaleX(1); }
+.aside-label { font-family:var(--mono); font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+.aside-value { font-family:var(--display); font-size:36px; font-weight:600; color:var(--paper); }
+.aside-sub { font-size:13px; color:var(--muted); margin-top:4px; }
+
+/* PROJECTS */
+#projects { padding:120px 0; }
+.project-featured { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:32px; background:var(--surface); transition:border-color 0.3s; }
+.project-featured:hover { border-color:rgba(93,224,200,0.25); }
+.project-info { padding:52px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid var(--border); }
+.project-num { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:28px; }
+.project-title { font-family:var(--display); font-size:36px; font-weight:700; line-height:1.15; color:var(--paper); margin-bottom:20px; }
+.project-desc { font-size:15px; line-height:1.8; color:var(--muted); font-weight:300; margin-bottom:28px; flex-grow:1; }
+.project-features { margin-bottom:32px; }
+.project-features li { display:flex; align-items:center; gap:10px; font-size:14px; color:var(--muted); padding:8px 0; border-bottom:1px solid var(--border); }
+.project-features li:first-child { border-top:1px solid var(--border); }
+.project-features li::before { content:'▸'; color:var(--accent); font-size:10px; flex-shrink:0; }
+.project-stack { display:flex; flex-wrap:wrap; gap:8px; }
+.tag { font-family:var(--mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; border:1px solid var(--border); color:var(--muted); padding:5px 12px; border-radius:2px; transition:border-color 0.25s,color 0.25s; }
+.tag:hover { border-color:var(--accent); color:var(--accent); }
+.tag.highlight { border-color:rgba(93,224,200,0.4); color:var(--accent); }
+.project-gallery { display:grid; grid-template-rows:1fr 1fr; overflow:hidden; }
+.gallery-item { position:relative; overflow:hidden; background:#0a0d12; border-bottom:1px solid var(--border); cursor:none; min-height:200px; }
+.gallery-item:last-child { border-bottom:none; }
+.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease,opacity 0.4s; opacity:0.75; }
+.gallery-item:hover img { transform:scale(1.05); opacity:0.95; }
+.gallery-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(93,224,200,0.1),transparent); opacity:0; transition:opacity 0.3s; }
+.gallery-item:hover .gallery-overlay { opacity:1; }
+.gallery-zoom { position:absolute; bottom:12px; right:12px; width:32px; height:32px; background:rgba(8,11,16,0.8); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s; font-size:14px; color:var(--accent); }
+.gallery-item:hover .gallery-zoom { opacity:1; }
+.projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.p-card { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:36px; position:relative; transition:transform 0.3s,border-color 0.3s; overflow:hidden; }
+.p-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(93,224,200,0.04),transparent); opacity:0; transition:opacity 0.4s; }
+.p-card:hover { transform:translateY(-6px); border-color:rgba(93,224,200,0.3); }
+.p-card:hover::before { opacity:1; }
+.p-card-icon { font-size:28px; margin-bottom:20px; display:block; line-height:1; }
+.p-card-title { font-family:var(--display); font-size:22px; font-weight:600; color:var(--paper); margin-bottom:12px; line-height:1.2; }
+.p-card-desc { font-size:14px; line-height:1.75; color:var(--muted); font-weight:300; margin-bottom:20px; }
+.p-card-stack { display:flex; flex-wrap:wrap; gap:6px; }
+
+/* SKILLS */
+#skills { padding:120px 0; }
+.skills-layout { display:grid; grid-template-columns:1fr 2fr; gap:80px; align-items:start; }
+.skills-intro p { font-size:16px; line-height:1.85; color:var(--muted); font-weight:300; margin-bottom:20px; }
+.skill-groups { display:flex; flex-direction:column; gap:48px; }
+.skill-group-title { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; display:flex; align-items:center; gap:12px; }
+.skill-group-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.skill-pills { display:flex; flex-wrap:wrap; gap:10px; }
+.skill-pill { display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); padding:10px 18px; border-radius:2px; font-size:14px; font-weight:400; color:var(--paper); transition:border-color 0.25s,background 0.25s,transform 0.2s; cursor:none; }
+.skill-pill:hover { border-color:var(--accent); background:rgba(93,224,200,0.05); transform:translateY(-2px); }
+.skill-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+.skill-dot.b { background:var(--accent2); }
+.skill-dot.r { background:var(--red); }
+
+/* CONTACT */
+#contact { padding:120px 0; }
+.contact-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.contact-intro p { font-size:16px; line-height:1.9; color:var(--muted); font-weight:300; margin-bottom:28px; }
+.contact-line { display:flex; align-items:center; gap:20px; padding:20px 0; border-bottom:1px solid var(--border); transition:border-color 0.25s; }
+.contact-line:first-of-type { border-top:1px solid var(--border); }
+.contact-line:hover { border-color:rgba(93,224,200,0.3); }
+.contact-icon { width:40px; height:40px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; border-radius:2px; }
+.contact-label { font-family:var(--mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); }
+.contact-value { font-size:15px; color:var(--paper); transition:color 0.25s; }
+.contact-line:hover .contact-value { color:var(--accent); }
+.contact-cta-box { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:52px 44px; position:relative; overflow:hidden; }
+.contact-cta-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent2),var(--accent)); }
+.cta-title { font-family:var(--display); font-size:36px; font-weight:700; color:var(--paper); line-height:1.2; margin-bottom:16px; }
+.cta-title em { font-style:italic; color:var(--accent); }
+.cta-desc { font-size:15px; line-height:1.75; color:var(--muted); font-weight:300; margin-bottom:36px; }
+.cta-email-link { display:inline-flex; align-items:center; gap:12px; background:var(--accent); color:var(--bg); font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; padding:16px 32px; transition:background 0.25s,gap 0.25s; }
+.cta-email-link:hover { background:#7eecd8; gap:18px; }
+
+/* FOOTER */
+footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; align-items:center; justify-content:space-between; }
+.footer-name { font-family:var(--display); font-size:18px; font-weight:600; color:var(--muted); }
+.footer-copy { font-family:var(--mono); font-size:10px; letter-spacing:0.15em; color:var(--muted); opacity:0.5; }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.92); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; backdrop-filter:blur(8px); }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal-img { max-width:88%; max-height:88vh; border-radius:2px; box-shadow:0 60px 120px rgba(0,0,0,0.8); border:1px solid var(--border); transform:scale(0.92); transition:transform 0.35s ease; }
+.modal-overlay.open .modal-img { transform:scale(1); }
+.modal-close { position:absolute; top:28px; right:36px; font-family:var(--mono); font-size:11px; letter-spacing:0.15em; color:var(--muted); cursor:none; transition:color 0.25s; }
+.modal-close:hover { color:var(--paper); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+.reveal { opacity:0; transform:translateY(36px); transition:opacity 0.7s ease,transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:0.1s; }
+.reveal-delay-2 { transition-delay:0.2s; }
+.reveal-delay-3 { transition-delay:0.3s; }
+.reveal-delay-4 { transition-delay:0.4s; }
+
+/* RESPONSIVE */
+@media (max-width:900px) {
+  nav { padding:16px 24px; }
+  .nav-links { gap:20px; }
+  #hero { grid-template-columns:1fr; padding:0 24px; }
+  .hero-right { display:none; }
+  .hero-left { padding-top:130px; }
+  .wrap { padding:0 24px; }
+  .about-grid,.skills-layout,.contact-wrapper { grid-template-columns:1fr; gap:48px; }
+  .project-featured { grid-template-columns:1fr; }
+  .project-gallery { display:none; }
+  .projects-grid { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:12px; text-align:center; }
+}
+</style>
+</head>
 <body>
 
-<!-- NAVBAR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
 <nav>
-    <a href="#about">À propos</a>
-    <a href="#projects">Projets</a>
-    <a href="#skills">Compétences</a>
-    <a href="#contact">Contact</a>
+  <a href="#hero" class="nav-brand">YZ<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#skills">Stack</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- HEADER -->
-<header>
-    <h1>Yousra Zerouati</h1>
-
-    <p style="font-size:20px;">
-        Développeuse ERP Full Stack (.NET & Blazor)
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Disponible — Open to opportunities</div>
+    <h1 class="hero-name">Yousra</h1>
+    <h2 class="hero-name-italic">Zerouati</h2>
+    <p class="hero-desc">
+      Développeuse <strong>ERP Full Stack</strong> spécialisée en .NET &amp; Blazor —
+      je conçois des modules métier robustes pour des systèmes de gestion complexes :
+      facturation, tracking, logique de données.
     </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Me contacter →</a>
+      <a href="#projects" class="btn-secondary">Voir mes projets</a>
+    </div>
+  </div>
 
-    <p style="max-width:600px;margin:auto;">
-        Spécialisée dans le développement de modules ERP robustes 
-        avec une forte logique métier (facturation, tracking, gestion des données).
-    </p>
-    <p style="margin-top:20px;">
-    <a href="#contact" style="padding:10px 20px;background:#a78bfa;color:white;border-radius:8px;">
-        Me contacter
-    </a>
-</p>
-</header>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-label">// Résumé rapide</div>
+      <div class="stat-row">
+        <span class="stat-label">Expérience</span>
+        <span class="stat-value">3 <span>ans</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Modules ERP</span>
+        <span class="stat-value">5+</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Stack principal</span>
+        <span class="stat-value" style="font-size:18px;font-family:var(--body);">.NET / Blazor</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Localisation</span>
+        <span class="stat-value" style="font-size:16px;font-family:var(--body);">Algérie 🇩🇿</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="sep"></div>
 
 <!-- ABOUT -->
 <section id="about">
-    <h2>À propos</h2>
-
-    <div class="card">
-        <p>
-            Développeuse ERP Full Stack avec 3 ans d’expérience dans la conception 
-            et le développement de modules métier complexes.
-        </p>
-
-        <p>
-            J’ai travaillé sur plusieurs systèmes ERP incluant :
-        </p>
-
-        <ul>
-            <li>Gestion des déchets (Waste Tracking)</li>
-            <li>Gestion des clients et fournisseurs</li>
-            <li>Modules de facturation avec calculs automatiques</li>
-        </ul>
-
-        <p>
-            Mon expertise se concentre sur la gestion des données, 
-            la logique métier et la création d’interfaces fiables 
-            adaptées aux besoins réels des entreprises.
-        </p>
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">À propos</div>
+      <h2 class="section-title">Construire de la logique,<br/><em>pas juste du code.</em></h2>
     </div>
+    <div class="about-grid">
+      <div class="about-body reveal reveal-delay-1">
+        <p>Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.</p>
+        <p>J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.</p>
+        <ul class="about-list">
+          <li>Gestion des déchets &amp; vouchers (Waste Tracking ERP)</li>
+          <li>Relations clients / fournisseurs avec validation métier</li>
+          <li>Modules de facturation avec calculs automatiques</li>
+          <li>Résolution d'erreurs de clés étrangères et valeurs NULL</li>
+          <li>Grilles de données dynamiques (Syncfusion DataGrid)</li>
+        </ul>
+      </div>
+      <div class="about-aside reveal reveal-delay-2">
+        <div class="aside-card">
+          <div class="aside-label">Expérience totale</div>
+          <div class="aside-value">3</div>
+          <div class="aside-sub">Années en développement ERP</div>
+        </div>
+        <div class="aside-card">
+          <div class="aside-label">Modules développés</div>
+          <div class="aside-value">5+</div>
+          <div class="aside-sub">De la conception au déploiement</div>
+        </div>
+        <div class="aside-card">
+          <div class="aside-label">Spécialité</div>
+          <div class="aside-value" style="font-size:22px;font-family:var(--body);font-weight:500;">Full Stack</div>
+          <div class="aside-sub">Backend .NET + Frontend Blazor</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<div class="sep"></div>
 
 <!-- PROJECTS -->
 <section id="projects">
-    <h2>Mes Projets</h2>
-
-    <!-- Waste Tracking -->
-
-<div class="card project-card">
-    
-    <div class="project-text">
-      <h3>🚚 Waste Tracking System (ERP Module)</h3>
-
-        <p>
-            Module ERP permettant la gestion et le suivi des déchets
-            via des vouchers liés aux clients et fournisseurs.
-        </p>
-
-        <ul>
-            <li>Gestion des relations SQL</li>
-            <li>Validation des données</li>
-            <li>Workflow de statuts</li>
-        </ul>
-
-        <p class="tech">
-            C#, .NET, Blazor, SQL Server
-        </p>
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Projets sélectionnés</div>
+      <h2 class="section-title">Ce que j'ai <em>réellement construit.</em></h2>
     </div>
 
-
-<div class="project-images">
-    <img src="ERP-Menu.PNG" class="zoom-img">
-    <img src="Waste-add.PNG" class="zoom-img">
-    <img src="Waste-Browse.PNG" class="zoom-img">
-</div>
-</div>
-    
-    
-    <div class="card">
-    <h3>🧠 Problèmes résolus</h3>
-
-    <ul>
-        <li>Correction d’erreurs de clés étrangères (SQL)</li>
-        <li>Gestion des valeurs NULL dans la facturation</li>
-        <li>Calcul dynamique dans les grilles Syncfusion</li>
-    </ul>
-</div>
-    <!-- Customer -->
-    <div class="card">
-        <h3>👥 Customer & Vendor</h3>
-        <p>Gestion des clients et fournisseurs.</p>
+    <div class="project-featured reveal">
+      <div class="project-info">
+        <div>
+          <div class="project-num">// 01 — Module principal</div>
+          <h3 class="project-title">Waste Tracking System</h3>
+          <p class="project-desc">Module ERP complet permettant la gestion et le suivi des déchets via des vouchers liés aux clients et fournisseurs. Workflow de statuts, validation de données et relations SQL complexes.</p>
+          <ul class="project-features">
+            <li>Gestion des vouchers &amp; statuts dynamiques</li>
+            <li>Relations SQL multi-niveaux (clients / déchets / sites)</li>
+            <li>Validation des données en temps réel</li>
+            <li>Grilles Syncfusion avec calcul dynamique</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="tag highlight">C#</span>
+          <span class="tag highlight">.NET</span>
+          <span class="tag highlight">Blazor</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">Syncfusion</span>
+        </div>
+      </div>
+      <div class="project-gallery">
+        <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
+          <img src="ERP-Menu.PNG" alt="ERP Menu"/>
+          <div class="gallery-overlay"></div>
+          <div class="gallery-zoom">⤢</div>
+        </div>
+        <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
+          <img src="Waste-add.PNG" alt="Waste Add"/>
+          <div class="gallery-overlay"></div>
+          <div class="gallery-zoom">⤢</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Billing -->
-    <div class="card">
-        <h3>💰 Billing</h3>
-        <p>Facturation avec calcul automatique.</p>
+    <div class="projects-grid">
+      <div class="p-card reveal reveal-delay-1">
+        <span class="p-card-icon">👥</span>
+        <h3 class="p-card-title">Customer &amp; Vendor</h3>
+        <p class="p-card-desc">Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.</p>
+        <div class="p-card-stack"><span class="tag">C#</span><span class="tag">Blazor</span><span class="tag">SQL</span></div>
+      </div>
+      <div class="p-card reveal reveal-delay-2">
+        <span class="p-card-icon">💰</span>
+        <h3 class="p-card-title">Module Billing</h3>
+        <p class="p-card-desc">Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.</p>
+        <div class="p-card-stack"><span class="tag">.NET</span><span class="tag">Syncfusion</span><span class="tag">SQL</span></div>
+      </div>
+      <div class="p-card reveal reveal-delay-3">
+        <span class="p-card-icon">🔧</span>
+        <h3 class="p-card-title">Problèmes résolus</h3>
+        <p class="p-card-desc">Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion.</p>
+        <div class="p-card-stack"><span class="tag">Debugging</span><span class="tag">SQL</span><span class="tag">Syncfusion</span></div>
+      </div>
     </div>
-
+  </div>
 </section>
+
+<div class="sep"></div>
 
 <!-- SKILLS -->
 <section id="skills">
-    <h2>Compétences</h2>
-
-    <div class="grid">
-        <div class="card">C#, .NET</div>
-        <div class="card">Blazor</div>
-        <div class="card">SQL Server</div>
-        <div class="card">Syncfusion</div>
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Stack technique</div>
+      <h2 class="section-title">Mes outils <em>de prédilection.</em></h2>
     </div>
+    <div class="skills-layout">
+      <div class="skills-intro reveal">
+        <p>Ma stack est orientée sur l'écosystème Microsoft — du backend .NET jusqu'au frontend Blazor, avec SQL Server comme moteur de données.</p>
+        <p>Je travaille quotidiennement avec Syncfusion pour des interfaces de gestion riches, et je maîtrise la gestion de données complexes en environnement ERP.</p>
+      </div>
+      <div class="skill-groups">
+        <div class="reveal reveal-delay-1">
+          <div class="skill-group-title">Backend</div>
+          <div class="skill-pills">
+            <div class="skill-pill"><span class="skill-dot"></span>C# / .NET</div>
+            <div class="skill-pill"><span class="skill-dot"></span>ASP.NET Core</div>
+            <div class="skill-pill"><span class="skill-dot"></span>Entity Framework</div>
+            <div class="skill-pill"><span class="skill-dot"></span>REST API</div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="skill-group-title">Frontend</div>
+          <div class="skill-pills">
+            <div class="skill-pill"><span class="skill-dot b"></span>Blazor</div>
+            <div class="skill-pill"><span class="skill-dot b"></span>Syncfusion</div>
+            <div class="skill-pill"><span class="skill-dot b"></span>HTML / CSS</div>
+            <div class="skill-pill"><span class="skill-dot b"></span>JavaScript</div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-3">
+          <div class="skill-group-title">Données &amp; Outils</div>
+          <div class="skill-pills">
+            <div class="skill-pill"><span class="skill-dot r"></span>SQL Server</div>
+            <div class="skill-pill"><span class="skill-dot r"></span>T-SQL</div>
+            <div class="skill-pill"><span class="skill-dot r"></span>Git</div>
+            <div class="skill-pill"><span class="skill-dot r"></span>Visual Studio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<div class="sep"></div>
 
 <!-- CONTACT -->
 <section id="contact">
-    <h2>Contact</h2>
-
-    <div class="card">
-        <p>Email : zerouati.yousra@gmail.com</p>
-        <p>
-            GitHub :
-            <a href="https://github.com/yousra-zerouati" target="_blank">
-                github.com/yousra-zerouati
-            </a>
-        </p>
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Contact</div>
+      <h2 class="section-title">Travaillons <em>ensemble.</em></h2>
     </div>
+    <div class="contact-wrapper">
+      <div class="contact-intro reveal">
+        <p>Je suis ouverte à de nouvelles opportunités — que ce soit pour un poste, une collaboration ou un projet freelance en développement ERP.</p>
+        <p>N'hésitez pas à me contacter directement par email ou via GitHub.</p>
+        <div class="contact-line">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">zerouati.yousra@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div class="contact-icon">⌥</div>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <a href="https://github.com/yousra-zerouati" target="_blank">
+              <div class="contact-value">github.com/yousra-zerouati</div>
+            </a>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Localisation</div>
+            <div class="contact-value">Algérie — Remote friendly</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-cta-box reveal reveal-delay-2">
+        <h3 class="cta-title">Prête pour votre<br/><em>prochain projet.</em></h3>
+        <p class="cta-desc">Vous avez besoin d'une développeuse ERP expérimentée en .NET &amp; Blazor ? Discutons de votre projet et voyons comment je peux contribuer.</p>
+        <a href="mailto:zerouati.yousra@gmail.com" class="cta-email-link">Envoyer un email →</a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- JS ZOOM IMAGE -->
-<script>
-document.querySelectorAll('.zoom-img').forEach(img => {
-    img.onclick = function() {
-        let modal = document.createElement('div');
-        modal.style.position = "fixed";
-        modal.style.top = "0";
-        modal.style.left = "0";
-        modal.style.width = "100%";
-        modal.style.height = "100%";
-        modal.style.background = "rgba(0,0,0,0.8)";
-        modal.style.display = "flex";
-        modal.style.alignItems = "center";
-        modal.style.justifyContent = "center";
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Yousra Zerouati</span>
+  <span class="footer-copy">© 2025 — ERP Full Stack Developer</span>
+</footer>
 
-        let modalImg = document.createElement('img');
-        modalImg.src = this.src;
-        modalImg.style.maxWidth = "80%";
-
-        modal.appendChild(modalImg);
-        document.body.appendChild(modal);
-
-        modal.onclick = () => modal.remove();
-    }
-});
-</script>
-<script>
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-        }
-    });
-});
-
-document.querySelectorAll('.card').forEach(el => {
-    el.classList.add('hidden');
-    observer.observe(el);
-});
-</script>
-</body>
-    <script>
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("modalImg");
-
-document.querySelectorAll(".zoom-img").forEach(img => {
-    img.onclick = function () {
-        modal.style.display = "flex";
-        modalImg.src = this.src;
-    };
-});
-
-modal.onclick = function () {
-    modal.style.display = "none";
-};
-</script>
-</html>
-<div class="image-modal" id="imageModal">
-    <img id="modalImg">
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal()">
+  <span class="modal-close">ESC / Cliquer pour fermer</span>
+  <img class="modal-img" id="modalImg" src="" alt=""/>
 </div>
 
 <script>
-document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const targetId = this.getAttribute('href');
-        const target = document.querySelector(targetId);
-
-   const offset = 100;
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
-        });
-    });
+/* Cursor */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  dot.style.left = e.clientX + 'px';
+  dot.style.top  = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top  = e.clientY + 'px';
 });
-</script>
-<script>
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
-
-window.addEventListener("scroll", () => {
-    let current = "";
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        if (scrollY >= sectionTop) {
-            current = section.getAttribute("id");
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-        }
-    });
+document.querySelectorAll('a,button,.gallery-item,.p-card,.aside-card,.skill-pill').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
 });
+
+/* Scroll reveal */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* Active nav */
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 120) cur = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+});
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+});
+
+/* Modal */
+function openModal(src) {
+  document.getElementById('modalImg').src = src;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
+</body>
+</html>
