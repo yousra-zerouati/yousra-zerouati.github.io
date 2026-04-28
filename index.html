@@ -522,12 +522,10 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
       </div>
       <!-- Galerie — ajoutez vos images ici (remplacez les src) -->
       <div class="project-gallery">
-        <div class="gallery-item placeholder">
-          <div class="upload-btn" onclick="triggerUpload('billing-img-1')">
-            <span class="upload-icon">📷</span>
-            <span class="upload-text" data-i18n="upload_label">Ajouter une photo</span>
-          </div>
-          <input type="file" id="billing-img-1" accept="image/*" style="display:none" onchange="loadPreview(this)"/>
+            <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
+          <img src="BillingBrowse.PNG" alt="Billing Browse"/>
+          <div class="gallery-overlay"></div>
+          <div class="gallery-zoom">⤢</div>
         </div>
         <div class="gallery-item placeholder">
           <div class="upload-btn" onclick="triggerUpload('billing-img-2')">
