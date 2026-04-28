@@ -21,39 +21,22 @@
   --body:    'Outfit', sans-serif;
   --mono:    'Space Mono', monospace;
 }
-  .lang-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
+.lang-toggle {
+  display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--muted);
 }
+.lang-option { cursor:pointer; transition:color 0.25s; }
+.lang-option.active { color:var(--accent); }
+.lang-option:hover { color:var(--paper); }
+.divider { opacity:0.3; }
 
-.lang-option {
-  cursor: pointer;
-  transition: color 0.25s;
-}
-
-.lang-option.active {
-  color: var(--accent);
-}
-
-.lang-option:hover {
-  color: var(--paper);
-}
-
-.divider {
-  opacity: 0.3;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--body); background: var(--bg); color: var(--paper); overflow-x: hidden; cursor: none; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-img { display: block; max-width: 100%; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--body); background:var(--bg); color:var(--paper); overflow-x:hidden; cursor:none; }
+a { text-decoration:none; color:inherit; }
+ul { list-style:none; }
+img { display:block; max-width:100%; }
 
 /* CURSOR */
 .cursor-dot { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; width:8px; height:8px; border-radius:50%; background:var(--accent); transform:translate(-50%,-50%); transition:transform 0.08s; }
@@ -83,8 +66,8 @@ nav { position:fixed; top:0; inset-inline:0; z-index:500; display:flex; align-it
 .hero-tag { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); border:1px solid rgba(93,224,200,0.3); padding:6px 14px; border-radius:2px; margin-bottom:32px; opacity:0; animation:fadeUp 0.7s 0.1s ease forwards; }
 .hero-tag::before { content:'●'; font-size:6px; animation:blink 1.4s infinite; }
 @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
-.hero-name { font-family:var(--display); font-size:clamp(52px,7vw,88px); font-weight:700; line-height:1.0;color:var(--paper); margin-bottom:10px; opacity:0; animation:fadeUp 0.8s 0.25s ease forwards; }
-.hero-name-italic { font-family:var(--display); font-size:clamp(52px,7vw,88px); font-style:italic; line-height:1.0;font-weight:700; color:var(--paper); opacity:0; animation:fadeUp 0.8s 0.35s ease forwards; margin-bottom:36px; }
+.hero-name { font-family:var(--display); font-size:clamp(52px,7vw,88px); font-weight:700; line-height:1.0; color:var(--paper); margin-bottom:10px; opacity:0; animation:fadeUp 0.8s 0.25s ease forwards; }
+.hero-name-italic { font-family:var(--display); font-size:clamp(52px,7vw,88px); font-style:italic; line-height:1.0; font-weight:700; color:var(--paper); opacity:0; animation:fadeUp 0.8s 0.35s ease forwards; margin-bottom:36px; }
 .hero-desc { font-size:16px; font-weight:300; line-height:1.85; color:var(--muted); max-width:440px; margin-bottom:48px; opacity:0; animation:fadeUp 0.8s 0.5s ease forwards; }
 .hero-desc strong { color:var(--paper); font-weight:500; }
 .hero-actions { display:flex; gap:16px; align-items:center; opacity:0; animation:fadeUp 0.8s 0.65s ease forwards; }
@@ -228,6 +211,10 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 .reveal-delay-3 { transition-delay:0.3s; }
 .reveal-delay-4 { transition-delay:0.4s; }
 
+/* LANG TRANSITION */
+[data-i18n], [data-i18n-html] { transition: opacity 0.2s ease; }
+.lang-switching [data-i18n], .lang-switching [data-i18n-html] { opacity: 0; }
+
 /* RESPONSIVE */
 @media (max-width:900px) {
   nav { padding:16px 24px; }
@@ -254,50 +241,51 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
   <a href="#hero" class="nav-brand">YZ<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav_about">À propos</a></li>
-    <li><a href="#projects">Projets</a></li>
-    <li><a href="#skills">Stack</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#projects" data-i18n="nav_projects">Projets</a></li>
+    <li><a href="#skills" data-i18n="nav_skills">Stack</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
   </ul>
-<div class="lang-toggle">
-  <span class="lang-option active" data-lang="fr">FR</span>
-  <span class="divider">|</span>
-  <span class="lang-option" data-lang="en">EN</span>
-</div>
+  <div class="lang-toggle">
+    <span class="lang-option active" data-lang="fr">FR</span>
+    <span class="divider">|</span>
+    <span class="lang-option" data-lang="en">EN</span>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-tag">Disponible — Open to opportunities</div>
-    <h1 class="hero-name">Yousra</h1> <h2 class="hero-name-italic">ZEROUATI</h2>
-    <p class="hero-desc">
+    <div class="hero-tag" data-i18n="hero_tag">Disponible — Open to opportunities</div>
+    <h1 class="hero-name">Yousra</h1>
+    <h2 class="hero-name-italic">ZEROUATI</h2>
+    <p class="hero-desc" data-i18n-html="hero_desc">
       Développeuse <strong>ERP Full Stack</strong> spécialisée en .NET &amp; Blazor —
       je conçois des modules métier robustes pour des systèmes de gestion complexes :
       facturation, tracking, logique de données.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Me contacter →</a>
-      <a href="#projects" class="btn-secondary">Voir mes projets</a>
+      <a href="#contact" class="btn-primary" data-i18n="btn_contact">Me contacter →</a>
+      <a href="#projects" class="btn-secondary" data-i18n="btn_projects">Voir mes projets</a>
     </div>
   </div>
 
   <div class="hero-right">
     <div class="hero-card">
-      <div class="hero-card-label">// Résumé rapide</div>
+      <div class="hero-card-label" data-i18n="card_label">// Résumé rapide</div>
       <div class="stat-row">
-        <span class="stat-label">Expérience</span>
-        <span class="stat-value">3 <span>ans</span></span>
+        <span class="stat-label" data-i18n="stat_exp">Expérience</span>
+        <span class="stat-value">3 <span data-i18n="stat_years">ans</span></span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">Modules ERP</span>
+        <span class="stat-label" data-i18n="stat_modules">Modules ERP</span>
         <span class="stat-value">5+</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">Stack principal</span>
+        <span class="stat-label" data-i18n="stat_stack">Stack principal</span>
         <span class="stat-value" style="font-size:18px;font-family:var(--body);">.NET / Blazor</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">Localisation</span>
+        <span class="stat-label" data-i18n="stat_location">Localisation</span>
         <span class="stat-value" style="font-size:16px;font-family:var(--body);">Algérie 🇩🇿</span>
       </div>
     </div>
@@ -305,7 +293,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 
   <div class="hero-scroll">
     <div class="scroll-bar"></div>
-    <span>Scroll</span>
+    <span data-i18n="scroll_label">Scroll</span>
   </div>
 </section>
 
@@ -315,36 +303,36 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 <section id="about">
   <div class="wrap">
     <div class="section-header reveal">
-      <div class="section-eyebrow">À propos</div>
-      <h2 class="section-title">Construire de la logique,<br/><em>pas juste du code.</em></h2>
+      <div class="section-eyebrow" data-i18n="about_eyebrow">À propos</div>
+      <h2 class="section-title" data-i18n-html="about_title">Construire de la logique,<br/><em>pas juste du code.</em></h2>
     </div>
     <div class="about-grid">
       <div class="about-body reveal reveal-delay-1">
-        <p>Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.</p>
-        <p>J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.</p>
+        <p data-i18n-html="about_p1">Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.</p>
+        <p data-i18n="about_p2">J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.</p>
         <ul class="about-list">
-          <li>Gestion des déchets &amp; vouchers (Waste Tracking ERP)</li>
-          <li>Relations clients / fournisseurs avec validation métier</li>
-          <li>Modules de facturation avec calculs automatiques</li>
-          <li>Résolution d'erreurs de clés étrangères et valeurs NULL</li>
-          <li>Grilles de données dynamiques (Syncfusion DataGrid)</li>
+          <li data-i18n="about_li1">Gestion des déchets &amp; vouchers (Waste Tracking ERP)</li>
+          <li data-i18n="about_li2">Relations clients / fournisseurs avec validation métier</li>
+          <li data-i18n="about_li3">Modules de facturation avec calculs automatiques</li>
+          <li data-i18n="about_li4">Résolution d'erreurs de clés étrangères et valeurs NULL</li>
+          <li data-i18n="about_li5">Grilles de données dynamiques (Syncfusion DataGrid)</li>
         </ul>
       </div>
       <div class="about-aside reveal reveal-delay-2">
         <div class="aside-card">
-          <div class="aside-label">Expérience totale</div>
+          <div class="aside-label" data-i18n="aside_label1">Expérience totale</div>
           <div class="aside-value">3</div>
-          <div class="aside-sub">Années en développement ERP</div>
+          <div class="aside-sub" data-i18n="aside_sub1">Années en développement ERP</div>
         </div>
         <div class="aside-card">
-          <div class="aside-label">Modules développés</div>
+          <div class="aside-label" data-i18n="aside_label2">Modules développés</div>
           <div class="aside-value">5+</div>
-          <div class="aside-sub">De la conception au déploiement</div>
+          <div class="aside-sub" data-i18n="aside_sub2">De la conception au déploiement</div>
         </div>
         <div class="aside-card">
-          <div class="aside-label">Spécialité</div>
+          <div class="aside-label" data-i18n="aside_label3">Spécialité</div>
           <div class="aside-value" style="font-size:22px;font-family:var(--body);font-weight:500;">Full Stack</div>
-          <div class="aside-sub">Backend .NET + Frontend Blazor</div>
+          <div class="aside-sub" data-i18n="aside_sub3">Backend .NET + Frontend Blazor</div>
         </div>
       </div>
     </div>
@@ -357,21 +345,21 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 <section id="projects">
   <div class="wrap">
     <div class="section-header reveal">
-      <div class="section-eyebrow">Projets sélectionnés</div>
-      <h2 class="section-title">Ce que j'ai <em>réellement construit.</em></h2>
+      <div class="section-eyebrow" data-i18n="projects_eyebrow">Projets sélectionnés</div>
+      <h2 class="section-title" data-i18n-html="projects_title">Ce que j'ai <em>réellement construit.</em></h2>
     </div>
 
     <div class="project-featured reveal">
       <div class="project-info">
         <div>
-          <div class="project-num">// 01 — Module principal</div>
+          <div class="project-num" data-i18n="proj1_num">// 01 — Module principal</div>
           <h3 class="project-title">Waste Tracking System</h3>
-          <p class="project-desc">Module ERP complet permettant la gestion et le suivi des déchets via des vouchers liés aux clients et fournisseurs. Workflow de statuts, validation de données et relations SQL complexes.</p>
+          <p class="project-desc" data-i18n="proj1_desc">Module ERP complet permettant la gestion et le suivi des déchets via des vouchers liés aux clients et fournisseurs. Workflow de statuts, validation de données et relations SQL complexes.</p>
           <ul class="project-features">
-            <li>Gestion des vouchers &amp; statuts dynamiques</li>
-            <li>Relations SQL multi-niveaux (clients / déchets / sites)</li>
-            <li>Validation des données en temps réel</li>
-            <li>Grilles Syncfusion avec calcul dynamique</li>
+            <li data-i18n="proj1_f1">Gestion des vouchers &amp; statuts dynamiques</li>
+            <li data-i18n="proj1_f2">Relations SQL multi-niveaux (clients / déchets / sites)</li>
+            <li data-i18n="proj1_f3">Validation des données en temps réel</li>
+            <li data-i18n="proj1_f4">Grilles Syncfusion avec calcul dynamique</li>
           </ul>
         </div>
         <div class="project-stack">
@@ -399,20 +387,20 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
     <div class="projects-grid">
       <div class="p-card reveal reveal-delay-1">
         <span class="p-card-icon">👥</span>
-        <h3 class="p-card-title">Customer &amp; Vendor</h3>
-        <p class="p-card-desc">Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.</p>
+        <h3 class="p-card-title" data-i18n="proj2_title">Customer &amp; Vendor</h3>
+        <p class="p-card-desc" data-i18n="proj2_desc">Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.</p>
         <div class="p-card-stack"><span class="tag">C#</span><span class="tag">Blazor</span><span class="tag">SQL</span></div>
       </div>
       <div class="p-card reveal reveal-delay-2">
         <span class="p-card-icon">💰</span>
-        <h3 class="p-card-title">Module Billing</h3>
-        <p class="p-card-desc">Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.</p>
+        <h3 class="p-card-title" data-i18n="proj3_title">Module Billing</h3>
+        <p class="p-card-desc" data-i18n="proj3_desc">Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.</p>
         <div class="p-card-stack"><span class="tag">.NET</span><span class="tag">Syncfusion</span><span class="tag">SQL</span></div>
       </div>
       <div class="p-card reveal reveal-delay-3">
         <span class="p-card-icon">🔧</span>
-        <h3 class="p-card-title">Problèmes résolus</h3>
-        <p class="p-card-desc">Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion.</p>
+        <h3 class="p-card-title" data-i18n="proj4_title">Problèmes résolus</h3>
+        <p class="p-card-desc" data-i18n="proj4_desc">Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion.</p>
         <div class="p-card-stack"><span class="tag">Debugging</span><span class="tag">SQL</span><span class="tag">Syncfusion</span></div>
       </div>
     </div>
@@ -425,17 +413,17 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 <section id="skills">
   <div class="wrap">
     <div class="section-header reveal">
-      <div class="section-eyebrow">Stack technique</div>
-      <h2 class="section-title">Mes outils <em>de prédilection.</em></h2>
+      <div class="section-eyebrow" data-i18n="skills_eyebrow">Stack technique</div>
+      <h2 class="section-title" data-i18n-html="skills_title">Mes outils <em>de prédilection.</em></h2>
     </div>
     <div class="skills-layout">
       <div class="skills-intro reveal">
-        <p>Ma stack est orientée sur l'écosystème Microsoft — du backend .NET jusqu'au frontend Blazor, avec SQL Server comme moteur de données.</p>
-        <p>Je travaille quotidiennement avec Syncfusion pour des interfaces de gestion riches, et je maîtrise la gestion de données complexes en environnement ERP.</p>
+        <p data-i18n="skills_p1">Ma stack est orientée sur l'écosystème Microsoft — du backend .NET jusqu'au frontend Blazor, avec SQL Server comme moteur de données.</p>
+        <p data-i18n="skills_p2">Je travaille quotidiennement avec Syncfusion pour des interfaces de gestion riches, et je maîtrise la gestion de données complexes en environnement ERP.</p>
       </div>
       <div class="skill-groups">
         <div class="reveal reveal-delay-1">
-          <div class="skill-group-title">Backend</div>
+          <div class="skill-group-title" data-i18n="skills_backend">Backend</div>
           <div class="skill-pills">
             <div class="skill-pill"><span class="skill-dot"></span>C# / .NET</div>
             <div class="skill-pill"><span class="skill-dot"></span>ASP.NET Core</div>
@@ -444,7 +432,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
           </div>
         </div>
         <div class="reveal reveal-delay-2">
-          <div class="skill-group-title">Frontend</div>
+          <div class="skill-group-title" data-i18n="skills_frontend">Frontend</div>
           <div class="skill-pills">
             <div class="skill-pill"><span class="skill-dot b"></span>Blazor</div>
             <div class="skill-pill"><span class="skill-dot b"></span>Syncfusion</div>
@@ -453,7 +441,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
           </div>
         </div>
         <div class="reveal reveal-delay-3">
-          <div class="skill-group-title">Données &amp; Outils</div>
+          <div class="skill-group-title" data-i18n="skills_data">Données &amp; Outils</div>
           <div class="skill-pills">
             <div class="skill-pill"><span class="skill-dot r"></span>SQL Server</div>
             <div class="skill-pill"><span class="skill-dot r"></span>T-SQL</div>
@@ -472,13 +460,13 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 <section id="contact">
   <div class="wrap">
     <div class="section-header reveal">
-      <div class="section-eyebrow">Contact</div>
-      <h2 class="section-title">Travaillons <em>ensemble.</em></h2>
+      <div class="section-eyebrow" data-i18n="contact_eyebrow">Contact</div>
+      <h2 class="section-title" data-i18n-html="contact_title">Travaillons <em>ensemble.</em></h2>
     </div>
     <div class="contact-wrapper">
       <div class="contact-intro reveal">
-        <p>Je suis ouverte à de nouvelles opportunités — que ce soit pour un poste, une collaboration ou un projet freelance en développement ERP.</p>
-        <p>N'hésitez pas à me contacter directement par email ou via GitHub.</p>
+        <p data-i18n="contact_p1">Je suis ouverte à de nouvelles opportunités — que ce soit pour un poste, une collaboration ou un projet freelance en développement ERP.</p>
+        <p data-i18n="contact_p2">N'hésitez pas à me contacter directement par email ou via GitHub.</p>
         <div class="contact-line">
           <div class="contact-icon">✉</div>
           <div>
@@ -498,15 +486,15 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
         <div class="contact-line">
           <div class="contact-icon">📍</div>
           <div>
-            <div class="contact-label">Localisation</div>
-            <div class="contact-value">Algérie — Remote friendly</div>
+            <div class="contact-label" data-i18n="contact_loc_label">Localisation</div>
+            <div class="contact-value" data-i18n="contact_loc_value">Algérie — Remote friendly</div>
           </div>
         </div>
       </div>
       <div class="contact-cta-box reveal reveal-delay-2">
-        <h3 class="cta-title">Prête pour votre<br/><em>prochain projet.</em></h3>
-        <p class="cta-desc">Vous avez besoin d'une développeuse ERP expérimentée en .NET &amp; Blazor ? Discutons de votre projet et voyons comment je peux contribuer.</p>
-        <a href="mailto:zerouati.yousra@gmail.com" class="cta-email-link">Envoyer un email →</a>
+        <h3 class="cta-title" data-i18n-html="cta_title">Prête pour votre<br/><em>prochain projet.</em></h3>
+        <p class="cta-desc" data-i18n="cta_desc">Vous avez besoin d'une développeuse ERP expérimentée en .NET &amp; Blazor ? Discutons de votre projet et voyons comment je peux contribuer.</p>
+        <a href="mailto:zerouati.yousra@gmail.com" class="cta-email-link" data-i18n="cta_btn">Envoyer un email →</a>
       </div>
     </div>
   </div>
@@ -515,38 +503,244 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 <!-- FOOTER -->
 <footer>
   <span class="footer-name">Yousra ZEROUATI</span>
-  <span class="footer-copy">© 2025 — ERP Full Stack Developer</span>
+  <span class="footer-copy" data-i18n="footer_copy">© 2025 — ERP Full Stack Developer</span>
 </footer>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModal()">
-  <span class="modal-close">ESC / Cliquer pour fermer</span>
+  <span class="modal-close" data-i18n="modal_close">ESC / Cliquer pour fermer</span>
   <img class="modal-img" id="modalImg" src="" alt=""/>
 </div>
 
 <script>
-/* Cursor */
-const dot = document.getElementById('cursorDot');
+/* ─── TRANSLATIONS ─────────────────────────────────────────── */
+const translations = {
+  fr: {
+    /* Nav */
+    nav_about:    "À propos",
+    nav_projects: "Projets",
+    nav_skills:   "Stack",
+    nav_contact:  "Contact",
+
+    /* Hero */
+    hero_tag:     "Disponible — Ouverte aux opportunités",
+    hero_desc:    "Développeuse <strong>ERP Full Stack</strong> spécialisée en .NET &amp; Blazor — je conçois des modules métier robustes pour des systèmes de gestion complexes : facturation, tracking, logique de données.",
+    btn_contact:  "Me contacter →",
+    btn_projects: "Voir mes projets",
+
+    /* Card */
+    card_label:    "// Résumé rapide",
+    stat_exp:      "Expérience",
+    stat_years:    "ans",
+    stat_modules:  "Modules ERP",
+    stat_stack:    "Stack principal",
+    stat_location: "Localisation",
+    scroll_label:  "Scroll",
+
+    /* About */
+    about_eyebrow: "À propos",
+    about_title:   "Construire de la logique,<br/><em>pas juste du code.</em>",
+    about_p1:      "Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.",
+    about_p2:      "J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.",
+    about_li1:     "Gestion des déchets & vouchers (Waste Tracking ERP)",
+    about_li2:     "Relations clients / fournisseurs avec validation métier",
+    about_li3:     "Modules de facturation avec calculs automatiques",
+    about_li4:     "Résolution d'erreurs de clés étrangères et valeurs NULL",
+    about_li5:     "Grilles de données dynamiques (Syncfusion DataGrid)",
+    aside_label1:  "Expérience totale",
+    aside_sub1:    "Années en développement ERP",
+    aside_label2:  "Modules développés",
+    aside_sub2:    "De la conception au déploiement",
+    aside_label3:  "Spécialité",
+    aside_sub3:    "Backend .NET + Frontend Blazor",
+
+    /* Projects */
+    projects_eyebrow: "Projets sélectionnés",
+    projects_title:   "Ce que j'ai <em>réellement construit.</em>",
+    proj1_num:  "// 01 — Module principal",
+    proj1_desc: "Module ERP complet permettant la gestion et le suivi des déchets via des vouchers liés aux clients et fournisseurs. Workflow de statuts, validation de données et relations SQL complexes.",
+    proj1_f1:   "Gestion des vouchers & statuts dynamiques",
+    proj1_f2:   "Relations SQL multi-niveaux (clients / déchets / sites)",
+    proj1_f3:   "Validation des données en temps réel",
+    proj1_f4:   "Grilles Syncfusion avec calcul dynamique",
+    proj2_title: "Customer & Vendor",
+    proj2_desc:  "Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.",
+    proj3_title: "Module Billing",
+    proj3_desc:  "Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.",
+    proj4_title: "Problèmes résolus",
+    proj4_desc:  "Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion.",
+
+    /* Skills */
+    skills_eyebrow:  "Stack technique",
+    skills_title:    "Mes outils <em>de prédilection.</em>",
+    skills_p1:       "Ma stack est orientée sur l'écosystème Microsoft — du backend .NET jusqu'au frontend Blazor, avec SQL Server comme moteur de données.",
+    skills_p2:       "Je travaille quotidiennement avec Syncfusion pour des interfaces de gestion riches, et je maîtrise la gestion de données complexes en environnement ERP.",
+    skills_backend:  "Backend",
+    skills_frontend: "Frontend",
+    skills_data:     "Données & Outils",
+
+    /* Contact */
+    contact_eyebrow:   "Contact",
+    contact_title:     "Travaillons <em>ensemble.</em>",
+    contact_p1:        "Je suis ouverte à de nouvelles opportunités — que ce soit pour un poste, une collaboration ou un projet freelance en développement ERP.",
+    contact_p2:        "N'hésitez pas à me contacter directement par email ou via GitHub.",
+    contact_loc_label: "Localisation",
+    contact_loc_value: "Algérie — Remote friendly",
+    cta_title:         "Prête pour votre<br/><em>prochain projet.</em>",
+    cta_desc:          "Vous avez besoin d'une développeuse ERP expérimentée en .NET & Blazor ? Discutons de votre projet et voyons comment je peux contribuer.",
+    cta_btn:           "Envoyer un email →",
+
+    /* Footer & modal */
+    footer_copy:  "© 2025 — ERP Full Stack Developer",
+    modal_close:  "ESC / Cliquer pour fermer",
+  },
+
+  en: {
+    /* Nav */
+    nav_about:    "About",
+    nav_projects: "Projects",
+    nav_skills:   "Tech Stack",
+    nav_contact:  "Contact",
+
+    /* Hero */
+    hero_tag:     "Available — Open to opportunities",
+    hero_desc:    "<strong>ERP Full Stack Developer</strong> specialized in .NET &amp; Blazor — I build robust business modules for complex management systems: billing, tracking, data workflows.",
+    btn_contact:  "Contact me →",
+    btn_projects: "View my projects",
+
+    /* Card */
+    card_label:    "// Quick summary",
+    stat_exp:      "Experience",
+    stat_years:    "yrs",
+    stat_modules:  "ERP Modules",
+    stat_stack:    "Main stack",
+    stat_location: "Location",
+    scroll_label:  "Scroll",
+
+    /* About */
+    about_eyebrow: "About",
+    about_title:   "Building logic,<br/><em>not just code.</em>",
+    about_p1:      "With <strong>3 years of experience</strong> in ERP development, I specialize in building business modules that address real enterprise constraints. Every feature is designed around data reliability, query performance, and usability.",
+    about_p2:      "I have worked on high-transaction-volume systems, managing complex end-to-end workflows — from SQL Server databases all the way to Blazor interfaces with Syncfusion components.",
+    about_li1:     "Waste management & vouchers (Waste Tracking ERP)",
+    about_li2:     "Customer / supplier relationships with business validation",
+    about_li3:     "Billing modules with automatic calculations",
+    about_li4:     "Foreign key error resolution and NULL value handling",
+    about_li5:     "Dynamic data grids (Syncfusion DataGrid)",
+    aside_label1:  "Total experience",
+    aside_sub1:    "Years in ERP development",
+    aside_label2:  "Modules built",
+    aside_sub2:    "From design to deployment",
+    aside_label3:  "Specialty",
+    aside_sub3:    "Backend .NET + Frontend Blazor",
+
+    /* Projects */
+    projects_eyebrow: "Selected projects",
+    projects_title:   "What I've <em>actually built.</em>",
+    proj1_num:  "// 01 — Core module",
+    proj1_desc: "Full ERP module for managing and tracking waste through vouchers linked to customers and suppliers. Status workflows, data validation, and complex SQL relationships.",
+    proj1_f1:   "Voucher management & dynamic statuses",
+    proj1_f2:   "Multi-level SQL relationships (clients / waste / sites)",
+    proj1_f3:   "Real-time data validation",
+    proj1_f4:   "Syncfusion grids with dynamic calculations",
+    proj2_title: "Customer & Vendor",
+    proj2_desc:  "Full management of customers and suppliers with detailed profiles, transaction history, and validation controls.",
+    proj3_title: "Billing Module",
+    proj3_desc:  "Automated billing with dynamic calculations, NULL value handling, and accounting document generation.",
+    proj4_title: "Issues resolved",
+    proj4_desc:  "SQL foreign key error fixes, NULL value management and dynamic calculations in Syncfusion data grids.",
+
+    /* Skills */
+    skills_eyebrow:  "Tech stack",
+    skills_title:    "My tools <em>of choice.</em>",
+    skills_p1:       "My stack is centered on the Microsoft ecosystem — from .NET backend to Blazor frontend, with SQL Server as the data engine.",
+    skills_p2:       "I work daily with Syncfusion for rich management interfaces and have strong expertise in complex data handling within ERP environments.",
+    skills_backend:  "Backend",
+    skills_frontend: "Frontend",
+    skills_data:     "Data & Tools",
+
+    /* Contact */
+    contact_eyebrow:   "Contact",
+    contact_title:     "Let's work <em>together.</em>",
+    contact_p1:        "I'm open to new opportunities — whether it's a position, a collaboration, or a freelance ERP development project.",
+    contact_p2:        "Feel free to reach out directly by email or via GitHub.",
+    contact_loc_label: "Location",
+    contact_loc_value: "Algeria — Remote friendly",
+    cta_title:         "Ready for your<br/><em>next project.</em>",
+    cta_desc:          "Looking for an experienced ERP developer in .NET & Blazor? Let's talk about your project and see how I can contribute.",
+    cta_btn:           "Send an email →",
+
+    /* Footer & modal */
+    footer_copy:  "© 2025 — ERP Full Stack Developer",
+    modal_close:  "ESC / Click to close",
+  }
+};
+
+/* ─── LANGUAGE ENGINE ──────────────────────────────────────── */
+function setLanguage(lang) {
+  document.body.classList.add('lang-switching');
+
+  setTimeout(() => {
+    const t = translations[lang];
+
+    /* Plain text nodes */
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    /* HTML nodes (preserve inner markup like <strong>, <em>) */
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
+    /* Toggle buttons */
+    document.querySelectorAll('.lang-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    /* Update <html lang> */
+    document.documentElement.lang = lang;
+
+    localStorage.setItem('portfolio_lang', lang);
+    document.body.classList.remove('lang-switching');
+  }, 150);
+}
+
+/* Click handlers */
+document.querySelectorAll('.lang-option').forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+/* Init on load */
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('portfolio_lang') || 'fr';
+  setLanguage(saved);
+});
+
+/* ─── CURSOR ───────────────────────────────────────────────── */
+const dot  = document.getElementById('cursorDot');
 const ring = document.getElementById('cursorRing');
 document.addEventListener('mousemove', e => {
-  dot.style.left = e.clientX + 'px';
-  dot.style.top  = e.clientY + 'px';
+  dot.style.left  = e.clientX + 'px';
+  dot.style.top   = e.clientY + 'px';
   ring.style.left = e.clientX + 'px';
   ring.style.top  = e.clientY + 'px';
 });
-document.querySelectorAll('a,button,.gallery-item,.p-card,.aside-card,.skill-pill').forEach(el => {
+document.querySelectorAll('a,button,.gallery-item,.p-card,.aside-card,.skill-pill,.lang-option').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
 });
 
-/* Scroll reveal */
+/* ─── SCROLL REVEAL ────────────────────────────────────────── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-/* Active nav */
-const secs = document.querySelectorAll('section[id]');
+/* ─── ACTIVE NAV ───────────────────────────────────────────── */
+const secs  = document.querySelectorAll('section[id]');
 const links = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
   let cur = '';
@@ -554,7 +748,7 @@ window.addEventListener('scroll', () => {
   links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
 });
 
-/* Smooth scroll */
+/* ─── SMOOTH SCROLL ────────────────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
@@ -562,7 +756,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* Modal */
+/* ─── MODAL ────────────────────────────────────────────────── */
 function openModal(src) {
   document.getElementById('modalImg').src = src;
   document.getElementById('modal').classList.add('open');
@@ -571,70 +765,6 @@ function closeModal() {
   document.getElementById('modal').classList.remove('open');
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-  const translations = {
-  fr: {
-    nav_about: "À propos",
-    nav_projects: "Projets",
-    nav_skills: "Stack",
-    nav_contact: "Contact",
-
-    hero_tag: "Disponible — Open to opportunities",
-    hero_desc: "Développeuse ERP Full Stack spécialisée en .NET & Blazor — je conçois des modules métier robustes pour des systèmes de gestion complexes : facturation, tracking, logique de données.",
-    btn_contact: "Me contacter →",
-    btn_projects: "Voir mes projets",
-
-    about_title: "Construire de la logique,",
-    about_sub: "pas juste du code.",
-
-    contact_title: "Travaillons",
-    contact_sub: "ensemble."
-  },
-
-  en: {
-    nav_about: "About",
-    nav_projects: "Projects",
-    nav_skills: "Tech Stack",
-    nav_contact: "Contact",
-
-    hero_tag: "Available — Open to opportunities",
-    hero_desc: "ERP Full Stack Developer specialized in .NET & Blazor — I build robust business modules for complex systems including billing, tracking, and data workflows.",
-    btn_contact: "Contact me →",
-    btn_projects: "View my projects",
-
-    about_title: "Building logic,",
-    about_sub: "not just code.",
-
-    contact_title: "Let's work",
-    contact_sub: "together."
-  }
-};
-
-function setLanguage(lang) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (translations[lang][key]) {
-      el.textContent = translations[lang][key];
-    }
-  });
-
-  document.querySelectorAll(".lang-option").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.lang === lang);
-  });
-
-  localStorage.setItem("lang", lang);
-}
-
-document.querySelectorAll(".lang-option").forEach(btn => {
-  btn.addEventListener("click", () => {
-    setLanguage(btn.dataset.lang);
-  });
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("lang") || "fr";
-  setLanguage(savedLang);
-});
 </script>
 </body>
 </html>
-
