@@ -120,11 +120,42 @@ section { scroll-margin-top:80px; }
 .aside-value { font-family:var(--display); font-size:36px; font-weight:600; color:var(--paper); }
 .aside-sub { font-size:13px; color:var(--muted); margin-top:4px; }
 
-/* PROJECTS */
+/* ═══════════════════════════════════════════════
+   PROJECTS — tous les projets ont le même layout
+   ═══════════════════════════════════════════════ */
 #projects { padding:120px 0; }
-.project-featured { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:32px; background:var(--surface); transition:border-color 0.3s; }
+
+/* Conteneur de chaque projet */
+.project-featured {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+  margin-bottom:32px;
+  background:var(--surface);
+  transition:border-color 0.3s;
+}
 .project-featured:hover { border-color:rgba(93,224,200,0.25); }
-.project-info { padding:52px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid var(--border); }
+
+/* Alterner : pair → info à gauche, impair → info à droite */
+.project-featured.reverse { direction:rtl; }
+.project-featured.reverse > * { direction:ltr; }
+
+/* Panneau gauche : infos */
+.project-info {
+  padding:52px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  border-right:1px solid var(--border);
+}
+.project-featured.reverse .project-info {
+  border-right:none;
+  border-left:1px solid var(--border);
+}
+
 .project-num { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:28px; }
 .project-title { font-family:var(--display); font-size:36px; font-weight:700; line-height:1.15; color:var(--paper); margin-bottom:20px; }
 .project-desc { font-size:15px; line-height:1.8; color:var(--muted); font-weight:300; margin-bottom:28px; flex-grow:1; }
@@ -133,27 +164,73 @@ section { scroll-margin-top:80px; }
 .project-features li:first-child { border-top:1px solid var(--border); }
 .project-features li::before { content:'▸'; color:var(--accent); font-size:10px; flex-shrink:0; }
 .project-stack { display:flex; flex-wrap:wrap; gap:8px; }
-.tag { font-family:var(--mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; border:1px solid var(--border); color:var(--muted); padding:5px 12px; border-radius:2px; transition:border-color 0.25s,color 0.25s; }
-.tag:hover { border-color:var(--accent); color:var(--accent); }
-.tag.highlight { border-color:rgba(93,224,200,0.4); color:var(--accent); }
-.project-gallery { display:grid; grid-template-rows:1fr 1fr; overflow:hidden; }
-.gallery-item { position:relative; overflow:hidden; background:#0a0d12; border-bottom:1px solid var(--border); cursor:none; min-height:200px; }
+
+/* Panneau droit : galerie photos */
+.project-gallery {
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  overflow:hidden;
+  min-height:360px;
+}
+.gallery-item {
+  position:relative;
+  overflow:hidden;
+  background:#0a0d12;
+  border-bottom:1px solid var(--border);
+  cursor:none;
+  min-height:180px;
+}
 .gallery-item:last-child { border-bottom:none; }
-.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease,opacity 0.4s; opacity:0.75; }
+
+/* Placeholder quand pas d'image */
+.gallery-item.placeholder {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:12px;
+}
+.gallery-item.placeholder .ph-icon { font-size:32px; opacity:0.3; }
+.gallery-item.placeholder .ph-label {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+  opacity:0.4;
+}
+/* Bouton d'upload visible en mode placeholder */
+.gallery-item.placeholder .upload-btn {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:10px;
+  border:2px dashed rgba(93,224,200,0.15);
+  transition:border-color 0.3s, background 0.3s;
+  cursor:pointer;
+}
+.gallery-item.placeholder .upload-btn:hover {
+  border-color:rgba(93,224,200,0.4);
+  background:rgba(93,224,200,0.03);
+}
+.upload-icon { font-size:28px; color:var(--accent); opacity:0.5; }
+.upload-text { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); opacity:0.5; }
+
+/* Image réelle */
+.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease, opacity 0.4s; opacity:0.75; }
 .gallery-item:hover img { transform:scale(1.05); opacity:0.95; }
 .gallery-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(93,224,200,0.1),transparent); opacity:0; transition:opacity 0.3s; }
 .gallery-item:hover .gallery-overlay { opacity:1; }
 .gallery-zoom { position:absolute; bottom:12px; right:12px; width:32px; height:32px; background:rgba(8,11,16,0.8); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s; font-size:14px; color:var(--accent); }
 .gallery-item:hover .gallery-zoom { opacity:1; }
-.projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.p-card { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:36px; position:relative; transition:transform 0.3s,border-color 0.3s; overflow:hidden; }
-.p-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(93,224,200,0.04),transparent); opacity:0; transition:opacity 0.4s; }
-.p-card:hover { transform:translateY(-6px); border-color:rgba(93,224,200,0.3); }
-.p-card:hover::before { opacity:1; }
-.p-card-icon { font-size:28px; margin-bottom:20px; display:block; line-height:1; }
-.p-card-title { font-family:var(--display); font-size:22px; font-weight:600; color:var(--paper); margin-bottom:12px; line-height:1.2; }
-.p-card-desc { font-size:14px; line-height:1.75; color:var(--muted); font-weight:300; margin-bottom:20px; }
-.p-card-stack { display:flex; flex-wrap:wrap; gap:6px; }
+
+/* Tags */
+.tag { font-family:var(--mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; border:1px solid var(--border); color:var(--muted); padding:5px 12px; border-radius:2px; transition:border-color 0.25s,color 0.25s; }
+.tag:hover { border-color:var(--accent); color:var(--accent); }
+.tag.highlight { border-color:rgba(93,224,200,0.4); color:var(--accent); }
 
 /* SKILLS */
 #skills { padding:120px 0; }
@@ -224,9 +301,9 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
   .hero-left { padding-top:130px; }
   .wrap { padding:0 24px; }
   .about-grid,.skills-layout,.contact-wrapper { grid-template-columns:1fr; gap:48px; }
-  .project-featured { grid-template-columns:1fr; }
-  .project-gallery { display:none; }
-  .projects-grid { grid-template-columns:1fr; }
+  .project-featured { grid-template-columns:1fr; direction:ltr !important; }
+  .project-featured .project-info { border-right:none !important; border-left:none !important; border-bottom:1px solid var(--border); }
+  .project-gallery { min-height:260px; }
   footer { flex-direction:column; gap:12px; text-align:center; }
 }
 </style>
@@ -240,10 +317,10 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 <nav>
   <a href="#hero" class="nav-brand">YZ<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="#about" data-i18n="nav_about">À propos</a></li>
+    <li><a href="#about"    data-i18n="nav_about">À propos</a></li>
     <li><a href="#projects" data-i18n="nav_projects">Projets</a></li>
-    <li><a href="#skills" data-i18n="nav_skills">Stack</a></li>
-    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    <li><a href="#skills"   data-i18n="nav_skills">Stack</a></li>
+    <li><a href="#contact"  data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="lang-toggle">
     <span class="lang-option active" data-lang="fr">FR</span>
@@ -264,8 +341,8 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
       facturation, tracking, logique de données.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary" data-i18n="btn_contact">Me contacter →</a>
-      <a href="#projects" class="btn-secondary" data-i18n="btn_projects">Voir mes projets</a>
+      <a href="#contact"  class="btn-primary"   data-i18n="btn_contact">Me contacter →</a>
+      <a href="#projects" class="btn-secondary"  data-i18n="btn_projects">Voir mes projets</a>
     </div>
   </div>
 
@@ -273,20 +350,20 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
     <div class="hero-card">
       <div class="hero-card-label" data-i18n="card_label">// Résumé rapide</div>
       <div class="stat-row">
-        <span class="stat-label" data-i18n="stat_exp">Expérience</span>
+        <span class="stat-label"  data-i18n="stat_exp">Expérience</span>
         <span class="stat-value">3 <span data-i18n="stat_years">ans</span></span>
       </div>
       <div class="stat-row">
-        <span class="stat-label" data-i18n="stat_modules">Modules ERP</span>
+        <span class="stat-label"  data-i18n="stat_modules">Modules ERP</span>
         <span class="stat-value">5+</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label" data-i18n="stat_stack">Stack principal</span>
-        <span class="stat-value" style="font-size:18px;font-family:var(--body);">.NET / Blazor</span>
+        <span class="stat-label"  data-i18n="stat_stack">Stack principal</span>
+        <span class="stat-value"  style="font-size:18px;font-family:var(--body);">.NET / Blazor</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label" data-i18n="stat_location">Localisation</span>
-        <span class="stat-value" style="font-size:16px;font-family:var(--body);">Algérie 🇩🇿</span>
+        <span class="stat-label"  data-i18n="stat_location">Localisation</span>
+        <span class="stat-value"  style="font-size:16px;font-family:var(--body);">Algérie 🇩🇿</span>
       </div>
     </div>
   </div>
@@ -308,7 +385,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
     </div>
     <div class="about-grid">
       <div class="about-body reveal reveal-delay-1">
-        <p data-i18n-html="about_p1">Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.</p>
+        <p data-i18n-html="about_p1">Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise.</p>
         <p data-i18n="about_p2">J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.</p>
         <ul class="about-list">
           <li data-i18n="about_li1">Gestion des déchets &amp; vouchers (Waste Tracking ERP)</li>
@@ -322,17 +399,17 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
         <div class="aside-card">
           <div class="aside-label" data-i18n="aside_label1">Expérience totale</div>
           <div class="aside-value">3</div>
-          <div class="aside-sub" data-i18n="aside_sub1">Années en développement ERP</div>
+          <div class="aside-sub"  data-i18n="aside_sub1">Années en développement ERP</div>
         </div>
         <div class="aside-card">
           <div class="aside-label" data-i18n="aside_label2">Modules développés</div>
           <div class="aside-value">5+</div>
-          <div class="aside-sub" data-i18n="aside_sub2">De la conception au déploiement</div>
+          <div class="aside-sub"  data-i18n="aside_sub2">De la conception au déploiement</div>
         </div>
         <div class="aside-card">
           <div class="aside-label" data-i18n="aside_label3">Spécialité</div>
           <div class="aside-value" style="font-size:22px;font-family:var(--body);font-weight:500;">Full Stack</div>
-          <div class="aside-sub" data-i18n="aside_sub3">Backend .NET + Frontend Blazor</div>
+          <div class="aside-sub"  data-i18n="aside_sub3">Backend .NET + Frontend Blazor</div>
         </div>
       </div>
     </div>
@@ -341,7 +418,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 
 <div class="sep"></div>
 
-<!-- PROJECTS -->
+<!-- ══════════════════ PROJECTS ══════════════════ -->
 <section id="projects">
   <div class="wrap">
     <div class="section-header reveal">
@@ -349,6 +426,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
       <h2 class="section-title" data-i18n-html="projects_title">Ce que j'ai <em>réellement construit.</em></h2>
     </div>
 
+    <!-- ── Projet 01 : Waste Tracking ── -->
     <div class="project-featured reveal">
       <div class="project-info">
         <div>
@@ -370,6 +448,7 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
           <span class="tag">Syncfusion</span>
         </div>
       </div>
+      <!-- Galerie — remplacez les src par vos vraies images -->
       <div class="project-gallery">
         <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
           <img src="ERP-Menu.PNG" alt="ERP Menu"/>
@@ -384,40 +463,123 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
       </div>
     </div>
 
-    <div class="projects-grid">
-      <div class="p-card reveal reveal-delay-1">
-        <span class="p-card-icon">👥</span>
-        <h3 class="p-card-title" data-i18n="proj2_title">Customer &amp; Vendor</h3>
-        <p class="p-card-desc" data-i18n="proj2_desc">Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.</p>
-        <div class="p-card-stack"><span class="tag">C#</span><span class="tag">Blazor</span><span class="tag">SQL</span></div>
+    <!-- ── Projet 02 : Customer & Vendor ── -->
+    <div class="project-featured reverse reveal reveal-delay-1">
+      <div class="project-info">
+        <div>
+          <div class="project-num" data-i18n="proj2_num">// 02 — Gestion des tiers</div>
+          <h3 class="project-title" data-i18n="proj2_title">Customer &amp; Vendor</h3>
+          <p class="project-desc" data-i18n="proj2_desc">Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.</p>
+          <ul class="project-features">
+            <li data-i18n="proj2_f1">Fiches clients / fournisseurs complètes</li>
+            <li data-i18n="proj2_f2">Historique des transactions et mouvements</li>
+            <li data-i18n="proj2_f3">Validation métier et contrôle de doublons</li>
+            <li data-i18n="proj2_f4">Recherche et filtrage avancés (Syncfusion Grid)</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="tag highlight">C#</span>
+          <span class="tag highlight">Blazor</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">Syncfusion</span>
+        </div>
       </div>
-        <div class="project-gallery">
+      <!-- Galerie — remplacez les src par vos vraies images -->
+      <div class="project-gallery">
         <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
-          <img src="CustomerBrowse.PNG" alt="ERP Menu"/>
+          <img src="CustomerBrowse.PNG" alt="Customer Browse"/>
           <div class="gallery-overlay"></div>
           <div class="gallery-zoom">⤢</div>
         </div>
         <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
-          <img src="CustomerView.PNG" alt="Waste Add"/>
+          <img src="CustomerView.PNG" alt="Customer View"/>
           <div class="gallery-overlay"></div>
           <div class="gallery-zoom">⤢</div>
         </div>
       </div>
     </div>
-      <div class="p-card reveal reveal-delay-2">
-        <span class="p-card-icon">💰</span>
-        <h3 class="p-card-title" data-i18n="proj3_title">Module Billing</h3>
-        <p class="p-card-desc" data-i18n="proj3_desc">Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.</p>
-        <div class="p-card-stack"><span class="tag">.NET</span><span class="tag">Syncfusion</span><span class="tag">SQL</span></div>
+
+    <!-- ── Projet 03 : Billing ── -->
+    <div class="project-featured reveal reveal-delay-2">
+      <div class="project-info">
+        <div>
+          <div class="project-num" data-i18n="proj3_num">// 03 — Facturation</div>
+          <h3 class="project-title" data-i18n="proj3_title">Module Billing</h3>
+          <p class="project-desc" data-i18n="proj3_desc">Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.</p>
+          <ul class="project-features">
+            <li data-i18n="proj3_f1">Calculs automatiques de montants et taxes</li>
+            <li data-i18n="proj3_f2">Gestion robuste des valeurs NULL et cas limites</li>
+            <li data-i18n="proj3_f3">Génération de documents comptables PDF</li>
+            <li data-i18n="proj3_f4">Historique et audit des factures</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="tag highlight">.NET</span>
+          <span class="tag highlight">C#</span>
+          <span class="tag">Syncfusion</span>
+          <span class="tag">SQL Server</span>
+        </div>
       </div>
-      <div class="p-card reveal reveal-delay-3">
-        <span class="p-card-icon">🔧</span>
-        <h3 class="p-card-title" data-i18n="proj4_title">Problèmes résolus</h3>
-        <p class="p-card-desc" data-i18n="proj4_desc">Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion.</p>
-        <div class="p-card-stack"><span class="tag">Debugging</span><span class="tag">SQL</span><span class="tag">Syncfusion</span></div>
+      <!-- Galerie — ajoutez vos images ici (remplacez les src) -->
+      <div class="project-gallery">
+        <div class="gallery-item placeholder">
+          <div class="upload-btn" onclick="triggerUpload('billing-img-1')">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text" data-i18n="upload_label">Ajouter une photo</span>
+          </div>
+          <input type="file" id="billing-img-1" accept="image/*" style="display:none" onchange="loadPreview(this)"/>
+        </div>
+        <div class="gallery-item placeholder">
+          <div class="upload-btn" onclick="triggerUpload('billing-img-2')">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text" data-i18n="upload_label">Ajouter une photo</span>
+          </div>
+          <input type="file" id="billing-img-2" accept="image/*" style="display:none" onchange="loadPreview(this)"/>
+        </div>
       </div>
     </div>
-  </div>
+
+    <!-- ── Projet 04 : Debug & Résolution ── -->
+    <div class="project-featured reverse reveal reveal-delay-3">
+      <div class="project-info">
+        <div>
+          <div class="project-num" data-i18n="proj4_num">// 04 — Debugging</div>
+          <h3 class="project-title" data-i18n="proj4_title">Résolution de problèmes</h3>
+          <p class="project-desc" data-i18n="proj4_desc">Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion en environnement de production.</p>
+          <ul class="project-features">
+            <li data-i18n="proj4_f1">Correction d'erreurs de clés étrangères SQL Server</li>
+            <li data-i18n="proj4_f2">Gestion des valeurs NULL en cascade</li>
+            <li data-i18n="proj4_f3">Calculs dynamiques dans les DataGrids</li>
+            <li data-i18n="proj4_f4">Optimisation de requêtes lentes</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="tag highlight">Debugging</span>
+          <span class="tag highlight">SQL</span>
+          <span class="tag">Syncfusion</span>
+          <span class="tag">T-SQL</span>
+        </div>
+      </div>
+      <!-- Galerie — ajoutez vos images ici -->
+      <div class="project-gallery">
+        <div class="gallery-item placeholder">
+          <div class="upload-btn" onclick="triggerUpload('debug-img-1')">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text" data-i18n="upload_label">Ajouter une photo</span>
+          </div>
+          <input type="file" id="debug-img-1" accept="image/*" style="display:none" onchange="loadPreview(this)"/>
+        </div>
+        <div class="gallery-item placeholder">
+          <div class="upload-btn" onclick="triggerUpload('debug-img-2')">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text" data-i18n="upload_label">Ajouter une photo</span>
+          </div>
+          <input type="file" id="debug-img-2" accept="image/*" style="display:none" onchange="loadPreview(this)"/>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /wrap -->
 </section>
 
 <div class="sep"></div>
@@ -529,204 +691,163 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
 /* ─── TRANSLATIONS ─────────────────────────────────────────── */
 const translations = {
   fr: {
-    /* Nav */
-    nav_about:    "À propos",
-    nav_projects: "Projets",
-    nav_skills:   "Stack",
-    nav_contact:  "Contact",
-
-    /* Hero */
-    hero_tag:     "Disponible — Ouverte aux opportunités",
-    hero_desc:    "Développeuse <strong>ERP Full Stack</strong> spécialisée en .NET &amp; Blazor — je conçois des modules métier robustes pour des systèmes de gestion complexes : facturation, tracking, logique de données.",
-    btn_contact:  "Me contacter →",
-    btn_projects: "Voir mes projets",
-
-    /* Card */
-    card_label:    "// Résumé rapide",
-    stat_exp:      "Expérience",
-    stat_years:    "ans",
-    stat_modules:  "Modules ERP",
-    stat_stack:    "Stack principal",
-    stat_location: "Localisation",
-    scroll_label:  "Scroll",
-
-    /* About */
-    about_eyebrow: "À propos",
-    about_title:   "Construire de la logique,<br/><em>pas juste du code.</em>",
-    about_p1:      "Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.",
-    about_p2:      "J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.",
-    about_li1:     "Gestion des déchets & vouchers (Waste Tracking ERP)",
-    about_li2:     "Relations clients / fournisseurs avec validation métier",
-    about_li3:     "Modules de facturation avec calculs automatiques",
-    about_li4:     "Résolution d'erreurs de clés étrangères et valeurs NULL",
-    about_li5:     "Grilles de données dynamiques (Syncfusion DataGrid)",
-    aside_label1:  "Expérience totale",
-    aside_sub1:    "Années en développement ERP",
-    aside_label2:  "Modules développés",
-    aside_sub2:    "De la conception au déploiement",
-    aside_label3:  "Spécialité",
-    aside_sub3:    "Backend .NET + Frontend Blazor",
-
-    /* Projects */
-    projects_eyebrow: "Projets sélectionnés",
-    projects_title:   "Ce que j'ai <em>réellement construit.</em>",
-    proj1_num:  "// 01 — Module principal",
-    proj1_desc: "Module ERP complet permettant la gestion et le suivi des déchets via des vouchers liés aux clients et fournisseurs. Workflow de statuts, validation de données et relations SQL complexes.",
-    proj1_f1:   "Gestion des vouchers & statuts dynamiques",
-    proj1_f2:   "Relations SQL multi-niveaux (clients / déchets / sites)",
-    proj1_f3:   "Validation des données en temps réel",
-    proj1_f4:   "Grilles Syncfusion avec calcul dynamique",
-    proj2_title: "Customer & Vendor",
-    proj2_desc:  "Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.",
-    proj3_title: "Module Billing",
-    proj3_desc:  "Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.",
-    proj4_title: "Problèmes résolus",
-    proj4_desc:  "Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion.",
-
-    /* Skills */
-    skills_eyebrow:  "Stack technique",
-    skills_title:    "Mes outils <em>de prédilection.</em>",
-    skills_p1:       "Ma stack est orientée sur l'écosystème Microsoft — du backend .NET jusqu'au frontend Blazor, avec SQL Server comme moteur de données.",
-    skills_p2:       "Je travaille quotidiennement avec Syncfusion pour des interfaces de gestion riches, et je maîtrise la gestion de données complexes en environnement ERP.",
-    skills_backend:  "Backend",
-    skills_frontend: "Frontend",
-    skills_data:     "Données & Outils",
-
-    /* Contact */
-    contact_eyebrow:   "Contact",
-    contact_title:     "Travaillons <em>ensemble.</em>",
-    contact_p1:        "Je suis ouverte à de nouvelles opportunités — que ce soit pour un poste, une collaboration ou un projet freelance en développement ERP.",
-    contact_p2:        "N'hésitez pas à me contacter directement par email ou via GitHub.",
-    contact_loc_label: "Localisation",
-    contact_loc_value: "Algérie — Remote friendly",
-    cta_title:         "Prête pour votre<br/><em>prochain projet.</em>",
-    cta_desc:          "Vous avez besoin d'une développeuse ERP expérimentée en .NET & Blazor ? Discutons de votre projet et voyons comment je peux contribuer.",
-    cta_btn:           "Envoyer un email →",
-
-    /* Footer & modal */
-    footer_copy:  "© 2025 — ERP Full Stack Developer",
-    modal_close:  "ESC / Cliquer pour fermer",
+    nav_about:"À propos", nav_projects:"Projets", nav_skills:"Stack", nav_contact:"Contact",
+    hero_tag:"Disponible — Ouverte aux opportunités",
+    hero_desc:"Développeuse <strong>ERP Full Stack</strong> spécialisée en .NET &amp; Blazor — je conçois des modules métier robustes pour des systèmes de gestion complexes : facturation, tracking, logique de données.",
+    btn_contact:"Me contacter →", btn_projects:"Voir mes projets",
+    card_label:"// Résumé rapide", stat_exp:"Expérience", stat_years:"ans",
+    stat_modules:"Modules ERP", stat_stack:"Stack principal", stat_location:"Localisation",
+    scroll_label:"Scroll",
+    about_eyebrow:"À propos",
+    about_title:"Construire de la logique,<br/><em>pas juste du code.</em>",
+    about_p1:"Avec <strong>3 ans d'expérience</strong> en développement ERP, je me spécialise dans la création de modules métier qui répondent à de vraies contraintes d'entreprise. Chaque fonctionnalité est pensée autour de la fiabilité des données, la performance des requêtes et l'ergonomie.",
+    about_p2:"J'ai travaillé sur des systèmes à fort volume transactionnel, en gérant des workflows complexes de bout en bout — de la base de données SQL Server jusqu'à l'interface Blazor avec des composants Syncfusion.",
+    about_li1:"Gestion des déchets & vouchers (Waste Tracking ERP)",
+    about_li2:"Relations clients / fournisseurs avec validation métier",
+    about_li3:"Modules de facturation avec calculs automatiques",
+    about_li4:"Résolution d'erreurs de clés étrangères et valeurs NULL",
+    about_li5:"Grilles de données dynamiques (Syncfusion DataGrid)",
+    aside_label1:"Expérience totale", aside_sub1:"Années en développement ERP",
+    aside_label2:"Modules développés", aside_sub2:"De la conception au déploiement",
+    aside_label3:"Spécialité", aside_sub3:"Backend .NET + Frontend Blazor",
+    projects_eyebrow:"Projets sélectionnés",
+    projects_title:"Ce que j'ai <em>réellement construit.</em>",
+    proj1_num:"// 01 — Module principal",
+    proj1_desc:"Module ERP complet permettant la gestion et le suivi des déchets via des vouchers liés aux clients et fournisseurs. Workflow de statuts, validation de données et relations SQL complexes.",
+    proj1_f1:"Gestion des vouchers & statuts dynamiques",
+    proj1_f2:"Relations SQL multi-niveaux (clients / déchets / sites)",
+    proj1_f3:"Validation des données en temps réel",
+    proj1_f4:"Grilles Syncfusion avec calcul dynamique",
+    proj2_num:"// 02 — Gestion des tiers",
+    proj2_title:"Customer & Vendor",
+    proj2_desc:"Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.",
+    proj2_f1:"Fiches clients / fournisseurs complètes",
+    proj2_f2:"Historique des transactions et mouvements",
+    proj2_f3:"Validation métier et contrôle de doublons",
+    proj2_f4:"Recherche et filtrage avancés (Syncfusion Grid)",
+    proj3_num:"// 03 — Facturation",
+    proj3_title:"Module Billing",
+    proj3_desc:"Facturation automatisée avec calculs dynamiques, gestion des valeurs NULL, et génération de documents comptables.",
+    proj3_f1:"Calculs automatiques de montants et taxes",
+    proj3_f2:"Gestion robuste des valeurs NULL et cas limites",
+    proj3_f3:"Génération de documents comptables PDF",
+    proj3_f4:"Historique et audit des factures",
+    proj4_num:"// 04 — Debugging",
+    proj4_title:"Résolution de problèmes",
+    proj4_desc:"Correction d'erreurs de clés étrangères SQL, gestion des NULL et calculs dynamiques dans les grilles Syncfusion en environnement de production.",
+    proj4_f1:"Correction d'erreurs de clés étrangères SQL Server",
+    proj4_f2:"Gestion des valeurs NULL en cascade",
+    proj4_f3:"Calculs dynamiques dans les DataGrids",
+    proj4_f4:"Optimisation de requêtes lentes",
+    upload_label:"Ajouter une photo",
+    skills_eyebrow:"Stack technique",
+    skills_title:"Mes outils <em>de prédilection.</em>",
+    skills_p1:"Ma stack est orientée sur l'écosystème Microsoft — du backend .NET jusqu'au frontend Blazor, avec SQL Server comme moteur de données.",
+    skills_p2:"Je travaille quotidiennement avec Syncfusion pour des interfaces de gestion riches, et je maîtrise la gestion de données complexes en environnement ERP.",
+    skills_backend:"Backend", skills_frontend:"Frontend", skills_data:"Données & Outils",
+    contact_eyebrow:"Contact",
+    contact_title:"Travaillons <em>ensemble.</em>",
+    contact_p1:"Je suis ouverte à de nouvelles opportunités — que ce soit pour un poste, une collaboration ou un projet freelance en développement ERP.",
+    contact_p2:"N'hésitez pas à me contacter directement par email ou via GitHub.",
+    contact_loc_label:"Localisation", contact_loc_value:"Algérie — Remote friendly",
+    cta_title:"Prête pour votre<br/><em>prochain projet.</em>",
+    cta_desc:"Vous avez besoin d'une développeuse ERP expérimentée en .NET & Blazor ? Discutons de votre projet et voyons comment je peux contribuer.",
+    cta_btn:"Envoyer un email →",
+    footer_copy:"© 2025 — ERP Full Stack Developer",
+    modal_close:"ESC / Cliquer pour fermer",
   },
-
   en: {
-    /* Nav */
-    nav_about:    "About",
-    nav_projects: "Projects",
-    nav_skills:   "Tech Stack",
-    nav_contact:  "Contact",
-
-    /* Hero */
-    hero_tag:     "Available — Open to opportunities",
-    hero_desc:    "<strong>ERP Full Stack Developer</strong> specialized in .NET &amp; Blazor — I build robust business modules for complex management systems: billing, tracking, data workflows.",
-    btn_contact:  "Contact me →",
-    btn_projects: "View my projects",
-
-    /* Card */
-    card_label:    "// Quick summary",
-    stat_exp:      "Experience",
-    stat_years:    "yrs",
-    stat_modules:  "ERP Modules",
-    stat_stack:    "Main stack",
-    stat_location: "Location",
-    scroll_label:  "Scroll",
-
-    /* About */
-    about_eyebrow: "About",
-    about_title:   "Building logic,<br/><em>not just code.</em>",
-    about_p1:      "With <strong>3 years of experience</strong> in ERP development, I specialize in building business modules that address real enterprise constraints. Every feature is designed around data reliability, query performance, and usability.",
-    about_p2:      "I have worked on high-transaction-volume systems, managing complex end-to-end workflows — from SQL Server databases all the way to Blazor interfaces with Syncfusion components.",
-    about_li1:     "Waste management & vouchers (Waste Tracking ERP)",
-    about_li2:     "Customer / supplier relationships with business validation",
-    about_li3:     "Billing modules with automatic calculations",
-    about_li4:     "Foreign key error resolution and NULL value handling",
-    about_li5:     "Dynamic data grids (Syncfusion DataGrid)",
-    aside_label1:  "Total experience",
-    aside_sub1:    "Years in ERP development",
-    aside_label2:  "Modules built",
-    aside_sub2:    "From design to deployment",
-    aside_label3:  "Specialty",
-    aside_sub3:    "Backend .NET + Frontend Blazor",
-
-    /* Projects */
-    projects_eyebrow: "Selected projects",
-    projects_title:   "What I've <em>actually built.</em>",
-    proj1_num:  "// 01 — Core module",
-    proj1_desc: "Full ERP module for managing and tracking waste through vouchers linked to customers and suppliers. Status workflows, data validation, and complex SQL relationships.",
-    proj1_f1:   "Voucher management & dynamic statuses",
-    proj1_f2:   "Multi-level SQL relationships (clients / waste / sites)",
-    proj1_f3:   "Real-time data validation",
-    proj1_f4:   "Syncfusion grids with dynamic calculations",
-    proj2_title: "Customer & Vendor",
-    proj2_desc:  "Full management of customers and suppliers with detailed profiles, transaction history, and validation controls.",
-    proj3_title: "Billing Module",
-    proj3_desc:  "Automated billing with dynamic calculations, NULL value handling, and accounting document generation.",
-    proj4_title: "Issues resolved",
-    proj4_desc:  "SQL foreign key error fixes, NULL value management and dynamic calculations in Syncfusion data grids.",
-
-    /* Skills */
-    skills_eyebrow:  "Tech stack",
-    skills_title:    "My tools <em>of choice.</em>",
-    skills_p1:       "My stack is centered on the Microsoft ecosystem — from .NET backend to Blazor frontend, with SQL Server as the data engine.",
-    skills_p2:       "I work daily with Syncfusion for rich management interfaces and have strong expertise in complex data handling within ERP environments.",
-    skills_backend:  "Backend",
-    skills_frontend: "Frontend",
-    skills_data:     "Data & Tools",
-
-    /* Contact */
-    contact_eyebrow:   "Contact",
-    contact_title:     "Let's work <em>together.</em>",
-    contact_p1:        "I'm open to new opportunities — whether it's a position, a collaboration, or a freelance ERP development project.",
-    contact_p2:        "Feel free to reach out directly by email or via GitHub.",
-    contact_loc_label: "Location",
-    contact_loc_value: "Algeria — Remote friendly",
-    cta_title:         "Ready for your<br/><em>next project.</em>",
-    cta_desc:          "Looking for an experienced ERP developer in .NET & Blazor? Let's talk about your project and see how I can contribute.",
-    cta_btn:           "Send an email →",
-
-    /* Footer & modal */
-    footer_copy:  "© 2025 — ERP Full Stack Developer",
-    modal_close:  "ESC / Click to close",
+    nav_about:"About", nav_projects:"Projects", nav_skills:"Tech Stack", nav_contact:"Contact",
+    hero_tag:"Available — Open to opportunities",
+    hero_desc:"<strong>ERP Full Stack Developer</strong> specialized in .NET &amp; Blazor — I build robust business modules for complex management systems: billing, tracking, data workflows.",
+    btn_contact:"Contact me →", btn_projects:"View my projects",
+    card_label:"// Quick summary", stat_exp:"Experience", stat_years:"yrs",
+    stat_modules:"ERP Modules", stat_stack:"Main stack", stat_location:"Location",
+    scroll_label:"Scroll",
+    about_eyebrow:"About",
+    about_title:"Building logic,<br/><em>not just code.</em>",
+    about_p1:"With <strong>3 years of experience</strong> in ERP development, I specialize in building business modules that address real enterprise constraints. Every feature is designed around data reliability, query performance, and usability.",
+    about_p2:"I have worked on high-transaction-volume systems, managing complex end-to-end workflows — from SQL Server databases all the way to Blazor interfaces with Syncfusion components.",
+    about_li1:"Waste management & vouchers (Waste Tracking ERP)",
+    about_li2:"Customer / supplier relationships with business validation",
+    about_li3:"Billing modules with automatic calculations",
+    about_li4:"Foreign key error resolution and NULL value handling",
+    about_li5:"Dynamic data grids (Syncfusion DataGrid)",
+    aside_label1:"Total experience", aside_sub1:"Years in ERP development",
+    aside_label2:"Modules built", aside_sub2:"From design to deployment",
+    aside_label3:"Specialty", aside_sub3:"Backend .NET + Frontend Blazor",
+    projects_eyebrow:"Selected projects",
+    projects_title:"What I've <em>actually built.</em>",
+    proj1_num:"// 01 — Core module",
+    proj1_desc:"Full ERP module for managing and tracking waste through vouchers linked to customers and suppliers. Status workflows, data validation, and complex SQL relationships.",
+    proj1_f1:"Voucher management & dynamic statuses",
+    proj1_f2:"Multi-level SQL relationships (clients / waste / sites)",
+    proj1_f3:"Real-time data validation",
+    proj1_f4:"Syncfusion grids with dynamic calculations",
+    proj2_num:"// 02 — Third-party management",
+    proj2_title:"Customer & Vendor",
+    proj2_desc:"Full management of customers and suppliers with detailed profiles, transaction history, and validation controls.",
+    proj2_f1:"Complete customer / supplier profiles",
+    proj2_f2:"Transaction and movement history",
+    proj2_f3:"Business validation and duplicate control",
+    proj2_f4:"Advanced search & filtering (Syncfusion Grid)",
+    proj3_num:"// 03 — Billing",
+    proj3_title:"Billing Module",
+    proj3_desc:"Automated billing with dynamic calculations, NULL value handling, and accounting document generation.",
+    proj3_f1:"Automatic amount & tax calculations",
+    proj3_f2:"Robust NULL value and edge-case handling",
+    proj3_f3:"Accounting PDF document generation",
+    proj3_f4:"Invoice history & audit trail",
+    proj4_num:"// 04 — Debugging",
+    proj4_title:"Issue Resolution",
+    proj4_desc:"SQL foreign key error fixes, NULL value management and dynamic calculations in Syncfusion data grids in production environments.",
+    proj4_f1:"SQL Server foreign key error fixes",
+    proj4_f2:"Cascading NULL value handling",
+    proj4_f3:"Dynamic DataGrid calculations",
+    proj4_f4:"Slow query optimization",
+    upload_label:"Add a photo",
+    skills_eyebrow:"Tech stack",
+    skills_title:"My tools <em>of choice.</em>",
+    skills_p1:"My stack is centered on the Microsoft ecosystem — from .NET backend to Blazor frontend, with SQL Server as the data engine.",
+    skills_p2:"I work daily with Syncfusion for rich management interfaces and have strong expertise in complex data handling within ERP environments.",
+    skills_backend:"Backend", skills_frontend:"Frontend", skills_data:"Data & Tools",
+    contact_eyebrow:"Contact",
+    contact_title:"Let's work <em>together.</em>",
+    contact_p1:"I'm open to new opportunities — whether it's a position, a collaboration, or a freelance ERP development project.",
+    contact_p2:"Feel free to reach out directly by email or via GitHub.",
+    contact_loc_label:"Location", contact_loc_value:"Algeria — Remote friendly",
+    cta_title:"Ready for your<br/><em>next project.</em>",
+    cta_desc:"Looking for an experienced ERP developer in .NET & Blazor? Let's talk about your project and see how I can contribute.",
+    cta_btn:"Send an email →",
+    footer_copy:"© 2025 — ERP Full Stack Developer",
+    modal_close:"ESC / Click to close",
   }
 };
 
 /* ─── LANGUAGE ENGINE ──────────────────────────────────────── */
 function setLanguage(lang) {
   document.body.classList.add('lang-switching');
-
   setTimeout(() => {
     const t = translations[lang];
-
-    /* Plain text nodes */
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) el.textContent = t[key];
     });
-
-    /* HTML nodes (preserve inner markup like <strong>, <em>) */
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
       const key = el.getAttribute('data-i18n-html');
       if (t[key] !== undefined) el.innerHTML = t[key];
     });
-
-    /* Toggle buttons */
     document.querySelectorAll('.lang-option').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
-
-    /* Update <html lang> */
     document.documentElement.lang = lang;
-
     localStorage.setItem('portfolio_lang', lang);
     document.body.classList.remove('lang-switching');
   }, 150);
 }
-
-/* Click handlers */
 document.querySelectorAll('.lang-option').forEach(btn => {
   btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
 });
-
-/* Init on load */
 window.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('portfolio_lang') || 'fr';
   setLanguage(saved);
@@ -741,7 +862,7 @@ document.addEventListener('mousemove', e => {
   ring.style.left = e.clientX + 'px';
   ring.style.top  = e.clientY + 'px';
 });
-document.querySelectorAll('a,button,.gallery-item,.p-card,.aside-card,.skill-pill,.lang-option').forEach(el => {
+document.querySelectorAll('a,button,.gallery-item,.aside-card,.skill-pill,.lang-option,.upload-btn').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
 });
@@ -749,7 +870,7 @@ document.querySelectorAll('a,button,.gallery-item,.p-card,.aside-card,.skill-pil
 /* ─── SCROLL REVEAL ────────────────────────────────────────── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 /* ─── ACTIVE NAV ───────────────────────────────────────────── */
@@ -778,6 +899,30 @@ function closeModal() {
   document.getElementById('modal').classList.remove('open');
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ─── UPLOAD PREVIEW ───────────────────────────────────────── */
+function triggerUpload(id) {
+  document.getElementById(id).click();
+}
+function loadPreview(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const item = input.closest('.gallery-item');
+    // Vider le placeholder
+    item.classList.remove('placeholder');
+    item.innerHTML = `
+      <img src="${e.target.result}" alt="Project screenshot" style="width:100%;height:100%;object-fit:cover;opacity:0.75;transition:transform 0.6s ease,opacity 0.4s;"/>
+      <div class="gallery-overlay"></div>
+      <div class="gallery-zoom">⤢</div>
+    `;
+    item.onclick = () => openModal(e.target.result);
+    item.querySelector('img').addEventListener('mouseenter', function(){ this.style.transform='scale(1.05)'; this.style.opacity='0.95'; });
+    item.querySelector('img').addEventListener('mouseleave', function(){ this.style.transform=''; this.style.opacity='0.75'; });
+  };
+  reader.readAsDataURL(file);
+}
 </script>
 </body>
 </html>
