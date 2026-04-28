@@ -391,6 +391,19 @@ footer { border-top:1px solid var(--border); padding:36px 52px; display:flex; al
         <p class="p-card-desc" data-i18n="proj2_desc">Gestion complète des clients et fournisseurs avec fiches détaillées, historique transactionnel et contrôles de validation.</p>
         <div class="p-card-stack"><span class="tag">C#</span><span class="tag">Blazor</span><span class="tag">SQL</span></div>
       </div>
+        <div class="project-gallery">
+        <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
+          <img src="CustomerBrowse.PNG" alt="ERP Menu"/>
+          <div class="gallery-overlay"></div>
+          <div class="gallery-zoom">⤢</div>
+        </div>
+        <div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
+          <img src="CustomerView.PNG" alt="Waste Add"/>
+          <div class="gallery-overlay"></div>
+          <div class="gallery-zoom">⤢</div>
+        </div>
+      </div>
+    </div>
       <div class="p-card reveal reveal-delay-2">
         <span class="p-card-icon">💰</span>
         <h3 class="p-card-title" data-i18n="proj3_title">Module Billing</h3>
